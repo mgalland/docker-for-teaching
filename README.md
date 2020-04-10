@@ -20,9 +20,17 @@ Docker containers can be run. For domain-specific instructions, see the instruct
   - [Social media repository picture](#social-media-repository-picture)
 
 
-# Local machine usage
+# Local usage
 
 To test it locally, you'll need to install Docker Desktop first: see instructions at [docker desktop](https://www.docker.com/products/docker-desktop).
+
+
+## Open Data Science with R
+Based on the DockerHub `rocker/tidyverse` image but with three added libraries (`skimr`, `plotly` and `nycflights13`).     
+`docker run --rm --name rstudio -e PASSWORD=mypwd -p 8787:8787 scienceparkstudygroup/master-gls:openr-latest`
+
+Then navigate to http://localhost:8787 in your web browser. You should have an RStudio session running. Type `rstudio` as the user name and your password. 
+
 
 ## Phylogeny
 The `phylogeny/` folder contains the Docker file used to build the image.   
@@ -69,12 +77,12 @@ To use it locally on your machine:
 5. Finally enter `rstudio` as the user name and your select password.  
 
 __Explanations:__
-The `--rm` removes the container when it has been run. No need to store it into your computer after use.    
+The `--rm` removes the container when it has been run. No need to store it into your computer after use.      
 The base image is built on a RStudio server that will ask you for two things: a user name that is always __rstudio__ and __a password__ which is one you have to create. You will be asked for a user name and a password.
 
 
 
-# Usage in the cloud
+# Cloud usage
 
 ## SURFsara
 
