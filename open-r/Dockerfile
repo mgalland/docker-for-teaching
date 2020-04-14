@@ -1,4 +1,4 @@
-FROM rocker/tidyverse:3.6.2
+FROM rocker/verse:3.6.2
                    	
 LABEL author="m.galland@uva.nl" \
       description="A Docker image used to build a container usable for the R tutorial course presently (2020-04-02) hosted at https://carpentries-incubator.github.io/open-science-with-r/index.html" \
