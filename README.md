@@ -29,7 +29,7 @@ To test it locally, you'll need to install Docker Desktop first: see instruction
 Based on the DockerHub `rocker/tidyverse` image but with three added libraries (`skimr`, `plotly` and `nycflights13`).     
 `docker run --rm --name rstudio -e PASSWORD=mypwd -p 8787:8787 scienceparkstudygroup/master-gls:openr-latest`
 
-Then navigate to http://localhost:8787 in your web browser. You should have an RStudio session running. Type `rstudio` as the user name and your password. 
+Then navigate to [http://localhost:8787](http://localhost:8787) in your web browser. You should have an RStudio session running. Type `rstudio` as the user name and your password. 
 
 
 ## Phylogeny
@@ -73,7 +73,7 @@ To use it locally on your machine:
 1. Open a Shell window (command-line interface). 
 2. Navigate to your working directory where you have the files you want to work on for instance. 
 3. Type `docker run --rm --name rstudio -e PASSWORD=<choose a password> -p 8787:8787 scienceparkstudygroup/master-gls:rna-latest`.
-4. In a web browser, copy-paste this link: `http://localhost:8787`.
+4. In a web browser, open this link: [http://localhost:8787](http://localhost:8787).
 5. Finally enter `rstudio` as the user name and your select password.  
 
 __Explanations:__
