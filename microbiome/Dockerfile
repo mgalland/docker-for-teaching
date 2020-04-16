@@ -19,8 +19,8 @@ RUN R -e "install.packages('devtools', repos = 'http://mran.revolutionanalytics.
       && R -e "devtools::install_version('tidyverse', version = '1.3.0')" \
       && R -e "devtools::install_version('pheatmap', version = '1.0.12')" \
       && R -e "devtools::install_version('ade4', version = '1.7-10')" \
-      && R -e "devtools::install_version('multcomp', version = '1.4-10')"  
-      && R -e "devtools::install_version('patchwork', version = '1.0.0')"  
+      && R -e "devtools::install_version('multcomp', version = '1.4-10')" \
+      && R -e "devtools::install_version('patchwork', version = '1.0.0')" \
       && R -e "devtools::install_version('agricolae', version = '1.3-0')"  
 
       
