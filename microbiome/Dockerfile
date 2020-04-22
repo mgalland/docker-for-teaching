@@ -89,11 +89,10 @@ RUN R -e "install.packages('devtools', repos = 'http://mran.revolutionanalytics.
       && R -e "devtools::install_version('multcomp', version = '1.4-10')" \
       && R -e "devtools::install_version('patchwork', version = '1.0.0')" \
       && R -e "devtools::install_version('agricolae', version = '1.3-0')"  \
-      && R -e "devtools::install_version('fsa', version = '0.8.27')" \
-      && R -e "devtools::install_version('rcompanion', version = '2.3.21')"
+      && R -e "devtools::install_version('FSA', version = '0.8.27')" \
+      && R -e "devtools::install_version('rcompanion', version = '2.3.0')"
 
 
-      
 # Bioconductor R packages 
 RUN R -e "devtools::install_version('BiocManager', version = '1.30.10')" \
      && R -e "BiocManager::install('phyloseq', version = '3.10', update = FALSE)" 
