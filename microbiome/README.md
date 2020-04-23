@@ -26,6 +26,10 @@ The machine config was upgraded to this one:
 - 25 GB disk
 - Docker 5:19.03.1 on Ubuntu 18.04
 
+This went way better. Probably slightly oversized.
+
+<img src="2020-04-23-usage-config-2.png" width="100%">
+	
 # Tips
 
 ## To create N containers
