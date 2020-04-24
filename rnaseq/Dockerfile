@@ -21,6 +21,7 @@ RUN R -e "options(repos = list(CRAN = 'http://mran.revolutionanalytics.com/snaps
 
 # Bioconductor R packages
 RUN R -e "BiocManager::install('EnhancedVolcano', version = '3.10', update = FALSE)" \
-      && R -e "BiocManager::install('DESeq2', version = '3.10', update = FALSE)" 
+      && R -e "BiocManager::install('DESeq2', version = '3.10', update = FALSE)"  \
+      && R -e "BiocManager::install('regionReport', version = '3.10', update = FALSE)"
 
 
