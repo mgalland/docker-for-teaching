@@ -3,21 +3,26 @@ These Docker files are used to build the computational environments of the Green
 
 All Docker images ready to use are available at the [Dockerhub master-gls repository](https://hub.docker.com/repository/docker/scienceparkstudygroup/master-gls/general).
 
-Docker containers can be run. For domain-specific instructions, see the instructions below.  You 
+Docker containers can be run. For domain-specific instructions, see the instructions below.  
 
-**Table of contents**
-- [Local machine usage](#local-machine-usage)
-  - [Phylogeny](#phylogeny)
-  - [Microbiome](#microbiome)
-  - [RNA-seq](#rna-seq)
-- [Usage in the cloud](#usage-in-the-cloud)
-  - [SURFsara](#surfsara)
-  - [Digital Ocean](#digital-ocean)
+<!-- MarkdownTOC autolink="True" levels="1,2" -->
+
+- [Local usage](#local-usage)
+	- [Open Data Science with R](#open-data-science-with-r)
+	- [Phylogeny](#phylogeny)
+	- [Microbiome](#microbiome)
+	- [fastq](#fastq)
+	- [RNA-seq](#rna-seq)
+- [Cloud usage](#cloud-usage)
+	- [Digital Ocean](#digital-ocean)
 - [References](#references)
-  - [Linux-based containers](#linux-based-containers)
-  - [RStudio containers](#rstudio-containers)
-  - [Useful links](#useful-links)
-  - [Social media repository picture](#social-media-repository-picture)
+	- [Linux-based containers](#linux-based-containers)
+	- [RStudio containers](#rstudio-containers)
+	- [Useful links](#useful-links)
+	- [Social media repository picture](#social-media-repository-picture)
+
+<!-- /MarkdownTOC -->
+
 
 
 # Local usage
@@ -59,7 +64,31 @@ The `-v` mounts your current working directory onto the `/home/` folder inside y
 
 
 ## Microbiome
-An RStudio server can be run with ...
+A Dockerfile to follow the [Carpentry-style microbiota data analysis lesson](https://scienceparkstudygroup.github.io/microbiome-lesson/).
+
+This Docker image contains:
+
+To use it locally on your machine:
+1. Open a Shell window (command-line interface). 
+2. Navigate to your working directory where you have the files you want to work on for instance. 
+3. Type `docker run --rm --name rstudio -e PASSWORD=<choose a password> -p 8787:8787 scienceparkstudygroup/master-gls:microbiome-latest`.
+4. In a web browser, open this link: [http://localhost:8787](http://localhost:8787).
+5. Finally enter `rstudio` as the user name and your select password. 
+
+## fastq
+A Dockerfile to perform the command-line parts of the [Carpentry-style RNA-seq lesson](https://scienceparkstudygroup.github.io/rna-seq-lesson/index.html): the "fastq NGS quality check" and the "fastq to counts" section.   
+In addition, it can also be used to teach the [Carpentry Shell lesson](http://swcarpentry.github.io/shell-novice/).
+
+**The Docker image contains:**
+* The `data-shell/` dataset [from the Shell novice lesson](http://swcarpentry.github.io/shell-novice/setup.html).
+* A genome consisting of a single chromosome.
+* Four subsampled RNA-seq fastq files.
+
+**To use it locally on your machine:**
+1. Open a Shell window (command-line interface). 
+2. Navigate to your working directory where you have the files you want to work on for instance. 
+3. Type `docker run --rm -it scienceparkstudygroup/master-gls:rna-latest`.
+4. You will enter inside the container where you can execute bash commands. 
 
 ## RNA-seq
 A Dockerfile for the [Carpentry-style RNA-seq lesson](https://scienceparkstudygroup.github.io/rna-seq-lesson/index.html).  
@@ -75,7 +104,7 @@ The image is based on a [Docker Bioconductor image release 3.10](bioconductor/bi
 
 And two datasets called `counts.tsv` and `experimental_design_modified.tsv` that are available [here](https://zenodo.org/record/3666262) and described [here](https://scienceparkstudygroup.github.io/rnaseq-lesson/setup.html).
 
-To use it locally on your machine:
+**To use it locally on your machine:**
 1. Open a Shell window (command-line interface). 
 2. Navigate to your working directory where you have the files you want to work on for instance. 
 3. Type `docker run --rm --name rstudio -e PASSWORD=<choose a password> -p 8787:8787 scienceparkstudygroup/master-gls:rna-latest`.
@@ -110,22 +139,19 @@ Here's an example for two students:
 * Student 2 ("machine-02"): `docker run --detach --name machine-02 -v ~/machines/machine02/:/home/rstudio/ -e PASSWORD=student02 -p 8081:8787 scienceparkstudygroup/master-gls:openr-latest`
 
 
-
 docker run --detach --name rstudio1 -e PASSWORD=mypwd -p 8787:8787 scienceparkstudygroup/master-gls:openr-latest
-docker run --detach --name rstudio2 -e PASSWORD=mypwd -p 8788:8787 scienceparkstudygroup/master-gls:openr-latest
+docker run --detach --name rstudio2 -e PASSWORD=mypwd -p 8788:8787 scienceparkstudygroup/master-gls:openr-latest  
+... and so on...
 
-### Stop all containers
-`docker stop $(docker ps -q)`
+### Issues with user permissions and volume sharing with the host cloud machine
+See this blog post: https://medium.com/@mccode/understanding-how-uid-and-gid-work-in-docker-containers-c37a01d01cf
 
-To restart them, use this:
-`docker start <container_id or container_name>`
+### Useful Docker commands
 
-### Remove stopped containers
-`docker rm $(docker ps -q)`
-
-### Remove ALL containers
-This will remove both stopped and running containers. Beware!
-`docker rm $(docker ps -a -q)`
+- Stop all containers: `docker stop $(docker ps -q)`
+- To restart them, use this: `docker start <container_id or container_name>`
+- Remove stopped containers: `docker rm $(docker ps -q)`
+- Remove ALL containers: This will remove both stopped and running containers. Beware! `docker rm $(docker ps -a -q)`
 
 # References
 
