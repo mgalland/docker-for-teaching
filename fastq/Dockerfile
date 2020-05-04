@@ -8,7 +8,10 @@ LABEL author="m.galland@uva.nl" \
 SHELL ["/bin/bash", "--login", "-c"]
 
 # Add files for Shell novice lesson
-ADD data-shell/ /home/
+ADD data-shell /home/
+
+# install nano
+apt-get install nano
 
 # bioconda channel has first priority then r then conda-forge
 RUN conda config --add channels conda-forge  \
@@ -24,5 +27,6 @@ RUN conda create --name fastq --yes \
 # activate working environment
 RUN conda init bash \
   && conda activate fastq 
+
 
 CMD ["bin/bash"]
