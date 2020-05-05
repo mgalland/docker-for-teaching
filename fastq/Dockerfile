@@ -8,7 +8,11 @@ LABEL author="m.galland@uva.nl" \
 SHELL ["/bin/bash", "--login", "-c"]
 
 # Add files for Shell novice lesson
-ADD data-shell/ /home/
+RUN mkdir /home/data-shell
+ADD data-shell /home/data-shell
+
+# install nano
+RUN apt-get install nano
 
 # bioconda channel has first priority then r then conda-forge
 RUN conda config --add channels conda-forge  \
