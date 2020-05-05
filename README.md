@@ -47,10 +47,10 @@ The `-p 8787:8787` follow the format `-p host_port:container_port`. Therefore th
 The `phylogeny/` folder contains the Docker file used to build the image.   
 
 **The Docker image contains:**
-* ncbi-blast version 2.9.0 
-* muscle version 3.8.31
-* seqinr version 3.4_5 
-* iqtree=1.6.12
+- ncbi-blast version 2.9.0 
+- muscle version 3.8.31
+- seqinr version 3.4_5 
+- iqtree=1.6.12
 
 To use it locally on your machine:
 1. Open a Shell window (command-line interface). 
@@ -66,8 +66,20 @@ The `-v` mounts your current working directory onto the `/home/` folder inside y
 ## Microbiome
 A Dockerfile to follow the [Carpentry-style microbiota data analysis lesson](https://scienceparkstudygroup.github.io/microbiome-lesson/).
 
-This Docker image contains:
+**This Docker image contains:**
+- Three datasets called `data_loue_16S_nonnorm_grp.txt`, `data_loue_16S_nonnorm_taxo.txt` and `data_loue_16S_nonnorm.txt`.
+- `vegan` version 2.5-6
+- `tidyverse` version 1.3.0
+- `pheatmap` version 1.0.12
+- `ade4` version 1.7-10
+- `multcomp` version 1.4-10
+- `patchwork` version 1.0.0
+- `agricolae` version 1.3-0
+- `FSA` version 0.8.27
+- `rcompanion` version 2.3.0
+- `phyloseq` version 3.10 
 
+**To use it locally on your machine:** 
 To use it locally on your machine:
 1. Open a Shell window (command-line interface). 
 2. Navigate to your working directory where you have the files you want to work on for instance. 
@@ -87,7 +99,7 @@ In addition, it can also be used to teach the [Carpentry Shell lesson](http://sw
 **To use it locally on your machine:**
 1. Open a Shell window (command-line interface). 
 2. Navigate to your working directory where you have the files you want to work on for instance. 
-3. Type `docker run --rm -it scienceparkstudygroup/master-gls:rna-latest`.
+3. Type `docker run --rm -it scienceparkstudygroup/master-gls:fastq-latest`.
 4. You will enter inside the container where you can execute bash commands. 
 
 ## RNA-seq
@@ -101,8 +113,7 @@ The image is based on a [Docker Bioconductor image release 3.10](bioconductor/bi
 * BiocManager version 1.30.1 
 * EnhancedVolcano version 3.10
 * DESeq2 version 3.10
-
-And two datasets called `counts.tsv` and `experimental_design_modified.tsv` that are available [here](https://zenodo.org/record/3666262) and described [here](https://scienceparkstudygroup.github.io/rnaseq-lesson/setup.html).
+* Two datasets called `counts.tsv` and `experimental_design_modified.tsv` that are available [here](https://zenodo.org/record/3666262) and described [here](https://scienceparkstudygroup.github.io/rnaseq-lesson/setup.html).
 
 **To use it locally on your machine:**
 1. Open a Shell window (command-line interface). 
