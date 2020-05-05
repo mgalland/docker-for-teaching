@@ -5,17 +5,21 @@ All Docker images ready to use are available at the [Dockerhub master-gls reposi
 
 Docker containers can be run. For domain-specific instructions, see the instructions below.  
 
-<!-- MarkdownTOC autolink="True" levels="1,2" -->
+<!-- MarkdownTOC autolink="True" levels="1,2,3" -->
 
-- [Local usage](#local-usage)
-	- [Open Data Science with R](#open-data-science-with-r)
-	- [Phylogeny](#phylogeny)
-	- [Microbiome](#microbiome)
-	- [fastq](#fastq)
-	- [RNA-seq](#rna-seq)
-- [Cloud usage](#cloud-usage)
-	- [Digital Ocean](#digital-ocean)
-- [References](#references)
+- [1. Local usage](#1-local-usage)
+	- [1.1 Open Data Science with R](#11-open-data-science-with-r)
+	- [1.2 Phylogeny](#12-phylogeny)
+	- [1.3 Microbiome](#13-microbiome)
+	- [1.4 fastq](#14-fastq)
+	- [1.5 RNA-seq](#15-rna-seq)
+- [2. Cloud usage](#2-cloud-usage)
+	- [2.1 RStudio instances](#21-rstudio-instances)
+		- [Single container: one RStudio session](#single-container-one-rstudio-session)
+		- [Multiple containers: N = ... RStudio sessions](#multiple-containers-n---rstudio-sessions)
+		- [Issues with user permissions and volume sharing with the host cloud machine](#issues-with-user-permissions-and-volume-sharing-with-the-host-cloud-machine)
+		- [Useful Docker commands](#useful-docker-commands)
+- [3. References](#3-references)
 	- [Linux-based containers](#linux-based-containers)
 	- [RStudio containers](#rstudio-containers)
 	- [Useful links](#useful-links)
@@ -25,12 +29,12 @@ Docker containers can be run. For domain-specific instructions, see the instruct
 
 
 
-# Local usage
+# 1. Local usage
 
 To test it locally, you'll need to install Docker Desktop first: see instructions at [docker desktop](https://www.docker.com/products/docker-desktop).
 
 
-## Open Data Science with R
+## 1.1 Open Data Science with R
 Based on the DockerHub `rocker/tidyverse` image but with three added libraries (`skimr`, `plotly` and `nycflights13`).     
 `docker run --rm --name rstudio_instance -e PASSWORD=mypwd -p 8787:8787 scienceparkstudygroup/master-gls:openr-latest`
 
@@ -43,7 +47,7 @@ The `--name` gives a name to the running container for easy retrieval.
 The `-p 8787:8787` follow the format `-p host_port:container_port`. Therefore the port 8787 inside the container will be exposed to the outside port on the host machine. That way, the running instance of RStudio can be access through the <IP address>:port format.
 
 
-## Phylogeny
+## 1.2 Phylogeny
 The `phylogeny/` folder contains the Docker file used to build the image.   
 
 **The Docker image contains:**
@@ -63,7 +67,7 @@ The `--it` starts an interactive session (so you enter the shell directly).
 The `-v` mounts your current working directory onto the `/home/` folder inside your container. That way, you can access the files in your working directory _from_ within the container. 
 
 
-## Microbiome
+## 1.3 Microbiome
 A Dockerfile to follow the [Carpentry-style microbiota data analysis lesson](https://scienceparkstudygroup.github.io/microbiome-lesson/).
 
 **This Docker image contains:**
@@ -87,7 +91,7 @@ To use it locally on your machine:
 4. In a web browser, open this link: [http://localhost:8787](http://localhost:8787).
 5. Finally enter `rstudio` as the user name and your select password. 
 
-## fastq
+## 1.4 fastq
 A Dockerfile to perform the command-line parts of the [Carpentry-style RNA-seq lesson](https://scienceparkstudygroup.github.io/rna-seq-lesson/index.html): the "fastq NGS quality check" and the "fastq to counts" section.   
 In addition, it can also be used to teach the [Carpentry Shell lesson](http://swcarpentry.github.io/shell-novice/).
 
@@ -102,7 +106,7 @@ In addition, it can also be used to teach the [Carpentry Shell lesson](http://sw
 3. Type `docker run --rm -it scienceparkstudygroup/master-gls:fastq-latest`.
 4. You will enter inside the container where you can execute bash commands. 
 
-## RNA-seq
+## 1.5 RNA-seq
 A Dockerfile for the [Carpentry-style RNA-seq lesson](https://scienceparkstudygroup.github.io/rna-seq-lesson/index.html).  
 The image is based on a [Docker Bioconductor image release 3.10](bioconductor/bioconductor_docker:RELEASE_3_10).  
 
@@ -128,9 +132,9 @@ The base image is built on a RStudio server that will ask you for two things: a 
 
 
 
-# Cloud usage
+# 2. Cloud usage
 
-## Digital Ocean
+## 2.1 RStudio instances
 
 ### Single container: one RStudio session
 If you only want to run one RStudio session, then follow these steps:
@@ -164,7 +168,7 @@ See this blog post: https://medium.com/@mccode/understanding-how-uid-and-gid-wor
 - Remove stopped containers: `docker rm $(docker ps -q)`
 - Remove ALL containers: This will remove both stopped and running containers. Beware! `docker rm $(docker ps -a -q)`
 
-# References
+# 3. References
 
 ## Linux-based containers
 For the phylogeny course and the RNA-seq courses.
@@ -181,6 +185,7 @@ For the microbiome and RNA-seq courses.
 * A collection of Docker images for bioinformatics: [https://pegi3s.github.io/dockerfiles/](https://pegi3s.github.io/dockerfiles/)
 * [Docker and conda interaction](https://pythonspeed.com/articles/activate-conda-dockerfile/)
 * [https://www.configserverfirewall.com/docker/start-container-docker-run-command/#port-mapping](https://www.configserverfirewall.com/docker/start-container-docker-run-command/#port-mapping)
+* [Reverse proxy to create multiple IP addresses with only one main VM](https://www.digitalocean.com/community/questions/how-to-host-multiple-docker-containers-on-a-single-droplet-with-nginx-reverse-proxy)
 
 ## Social media repository picture
 [Andrew Bain on Unsplash](https://unsplash.com/photos/zJ-9FHfTQzQ).

@@ -10,6 +10,7 @@ LABEL author="m.galland@uva.nl" \
 # Add datasets used for teaching to the image
 ADD counts.tsv /home/rstudio/
 ADD experimental_design_modified.tsv /home/rstudio/
+ADD normalization_function.R /home/rstudio/
 
 # R packages. Specific versions are used here
 RUN R -e "options(repos = list(CRAN = 'http://mran.revolutionanalytics.com/snapshot/2020-01-01/'))" \
