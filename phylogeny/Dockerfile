@@ -23,4 +23,4 @@ RUN conda create --name phylogeny --yes \
 RUN conda init bash \
   && conda activate phylogeny 
 
-CMD ["bin/bash"]
+ENTRYPOINT conda activate phylogeny
