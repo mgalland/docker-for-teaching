@@ -182,10 +182,10 @@ For the microbiome and RNA-seq courses.
 
 ## Useful links
 * [Docker run reference](https://docs.docker.com/engine/reference/commandline/run/)
+* [A clear overview of Docker best practices](https://takacsmark.com/dockerfile-tutorial-by-example-dockerfile-best-practices-2018/#copy-vs-add)
 * A collection of Docker images for bioinformatics: [https://pegi3s.github.io/dockerfiles/](https://pegi3s.github.io/dockerfiles/)
 * [Docker and conda interaction](https://pythonspeed.com/articles/activate-conda-dockerfile/)
 * [https://www.configserverfirewall.com/docker/start-container-docker-run-command/#port-mapping](https://www.configserverfirewall.com/docker/start-container-docker-run-command/#port-mapping)
-* [Reverse proxy to create multiple IP addresses with only one main VM](https://www.digitalocean.com/community/questions/how-to-host-multiple-docker-containers-on-a-single-droplet-with-nginx-reverse-proxy)
 
 ## Social media repository picture
 [Andrew Bain on Unsplash](https://unsplash.com/photos/zJ-9FHfTQzQ).

@@ -8,7 +8,7 @@ LABEL author="m.galland@uva.nl" \
 SHELL ["/bin/bash", "--login", "-c"]
 
 # Add files for "From fastq to read counts"
-COPY rna-seq-files/ /home/
+ADD rna-seq-files/ /home/
 
 # install nano
 RUN apt-get install nano
