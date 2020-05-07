@@ -13,21 +13,26 @@ ADD experimental_design_modified.tsv /home/rstudio/
 ADD normalization_function.R /home/rstudio/
 ADD differential_genes.tsv /home/rstudio/
 
+
 # R packages. Specific versions are used here
 RUN R -e "options(repos = list(CRAN = 'http://mran.revolutionanalytics.com/snapshot/2020-01-01/'))" \
       && R -e "install.packages('devtools')"  \
       && R -e "devtools::install_version('pheatmap', version = '1.0.12')" \
       && R -e "devtools::install_version('tidyverse', version = '1.3.0')" \
       && R -e "devtools::install_version('BiocManager', version = '1.30.10')" \
-      && R -e "devtools::install_version('biomartr', version = '0.9.0')"
-      
+      && R -e "devtools::install_version('pwr', version = '1.2-0')" 
 
 # Bioconductor R packages
 RUN R -e "BiocManager::install('EnhancedVolcano', version = '3.10', update = FALSE)" \
       && R -e "BiocManager::install('DESeq2', version = '3.10', update = FALSE)"  \
       && R -e "BiocManager::install('clusterProfiler', version = '3.10', update = FALSE)" \
       && R -e "BiocManager::install('biomaRt', version = '3.10', update = FALSE)" \
-      && R -e "BiocManager::install('org.At.tair.db', version = '3.10', update = FALSE)" 
+      && R -e "BiocManager::install('org.At.tair.db', version = '3.10', update = FALSE)" \
+      && R -e "BiocManager::install('Biostrings', version = '3.10', update = FALSE)" 
+
+# install biomart the latest since it depends on Bioconductor packages Biostrings and BiomaRt
+RUN R -e "devtools::install_version('biomartr', version = '0.9.0')" 
+
 
 # Version-stable CTAN repo from the tlnet archive at texlive.info, used in the
 # TinyTeX installation: chosen as the frozen snapshot of the TeXLive release
