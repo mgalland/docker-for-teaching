@@ -11,6 +11,10 @@ SHELL ["/bin/bash", "--login", "-c"]
 RUN mkdir /home/data-shell
 ADD data-shell /home/data-shell
 
+# Add files for "From fastq to read counts"
+RUN mdir /home/rna-seq-files
+ADD rna-seq-files /home/rna-seq-files
+
 # install nano
 RUN apt-get install nano
 
@@ -22,6 +26,8 @@ RUN conda config --add channels conda-forge  \
 # install packages
 RUN conda create --name fastq --yes \
                         star=2.7.3a \
+                        trimmomatic=0.38 \
+                        samtools=1.10 \
                         fastqc=0.11.9 \
                         subread=2.0.0 
 
