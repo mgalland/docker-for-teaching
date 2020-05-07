@@ -29,10 +29,11 @@ RUN conda create --name fastq --yes \
                         trimmomatic=0.38 \
                         samtools=1.10 \
                         fastqc=0.11.9 \
-                        subread=2.0.0 
+                        subread=2.0.0 \
+     && conda clean -afy
 
 # activate working environment
 RUN conda init bash \
-  && conda activate fastq 
+  && conda activate fastq
 
 CMD ["bin/bash"]
