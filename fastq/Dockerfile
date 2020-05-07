@@ -23,10 +23,11 @@ RUN conda config --add channels conda-forge  \
 RUN conda create --name fastq --yes \
                         star=2.7.3a \
                         fastqc=0.11.9 \
-                        subread=2.0.0 
+                        subread=2.0.0 \
+     && conda clean -afy
 
 # activate working environment
 RUN conda init bash \
-  && conda activate fastq 
+  && conda activate fastq
 
 CMD ["bin/bash"]
