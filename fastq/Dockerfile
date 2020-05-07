@@ -7,13 +7,8 @@ LABEL author="m.galland@uva.nl" \
 # Make RUN commands use `bash --login`:
 SHELL ["/bin/bash", "--login", "-c"]
 
-# Add files for Shell novice lesson
-RUN mkdir /home/data-shell
-ADD data-shell /home/data-shell
-
 # Add files for "From fastq to read counts"
-RUN mdir /home/rna-seq-files
-ADD rna-seq-files /home/rna-seq-files
+COPY rna-seq-files/ /home/
 
 # install nano
 RUN apt-get install nano
