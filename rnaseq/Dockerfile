@@ -8,7 +8,7 @@ LABEL author="m.galland@uva.nl" \
 
 
 # Add datasets used for teaching to the image
-ADD counts.tsv /home/rstudio/
+ADD counts.txt /home/rstudio/
 ADD experimental_design_modified.tsv /home/rstudio/
 ADD normalization_function.R /home/rstudio/
 ADD differential_genes.tsv /home/rstudio/
