@@ -19,7 +19,11 @@ RUN conda create --name phylogeny --yes \
 			bedtools=2.29.2 \
 			trimal=1.4.1 \
 			mummer=3.23 \
-			gnuplot=5.2.7 
+			gnuplot=5.2.7
+
+# install a package Gnuplot needs 
+RUN apt update
+RUN apt install -y libgl1-mesa-glx
 
 # install a command-line text editor
 RUN apt-get install nano
