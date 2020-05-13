@@ -19,7 +19,7 @@ RUN conda create --name phylogeny --yes \
 			bedtools=2.29.2 \
 			trimal=1.4.1 \
 			mummer=3.23 \
-			gnuplot=v5.0.4 
+			gnuplot=5.0.4 
 
 # install a command-line text editor
 RUN apt-get install nano
