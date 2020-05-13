@@ -7,9 +7,10 @@ LABEL author="m.galland@uva.nl" \
 # Make RUN commands use `bash --login`:
 SHELL ["/bin/bash", "--login", "-c"]
 
-# Add files for Shell novice lesson
-RUN mkdir /home/data-shell
-ADD data-shell /home/data-shell
+
+# Add files for "From fastq to read counts"
+ADD rna-seq-files/ /home/
+
 
 # install nano
 RUN apt-get install nano
@@ -22,12 +23,14 @@ RUN conda config --add channels conda-forge  \
 # install packages
 RUN conda create --name fastq --yes \
                         star=2.7.3a \
+                        trimmomatic=0.38 \
+                        samtools=1.10 \
                         fastqc=0.11.9 \
-                        subread=2.0.0 
+                        subread=2.0.0 \
+     && conda clean -afy 
 
 # activate working environment
-RUN conda init bash \
-  && conda activate fastq 
-
+RUN /bin/bash -c "source activate fastq"
 
 CMD ["bin/bash"]
+

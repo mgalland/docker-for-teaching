@@ -4,6 +4,7 @@ LABEL author="l.fokkens@uva.nl" \
       description="A Docker image used to build a container that is used in the phylogenomics part of the GLS Master course Tools in Molecular Data Analysis" \
       usage="docker run --rm  scienceparkstudygroup/master-gls:phylogeny-latest" 
 
+# Docker by default runs shell commands with /bin/sh, which isn’t supported by the conda activate command.
 # Make RUN commands use `bash --login`:
 SHELL ["/bin/bash", "--login", "-c"]
 
@@ -45,7 +46,6 @@ RUN mkdir /home/python_scripts/
 ADD python_scripts /home/python_scripts
 
 # activate working environment
-RUN conda init bash 
-RUN conda activate phylogeny 
-
 CMD ["bin/bash"]
+CMD ["source", "activate", "phylogeny"]
+
