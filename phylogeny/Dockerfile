@@ -7,7 +7,7 @@ LABEL author="l.fokkens@uva.nl" \
 # Make RUN commands use `bash --login`:
 SHELL ["/bin/bash", "--login", "-c"]
 
-# bioconda channel has first priority then r then conda-forge
+# bioconda channel has first priority, then conda-forge
 RUN conda config --add channels conda-forge  \
 && conda config --add channels bioconda  
 
@@ -22,6 +22,21 @@ RUN conda create --name phylogeny --yes \
 # install a command-line text editor
 RUN apt-get install nano
 
+
+# add data in case students need to run from a virtual machine 
+RUN mkdir /home/plan_b
+RUN mkdir /home/plan_b/genome_assemblies_cds_fasta
+
+ADD genome_assemblies_cds_fasta /home/plan_b/genome_assemblies_cds_fasta
+
+# add fastas with homologous BUSCO genes
+RUN mkdir /home/BUSCO_fastas 
+ADD BUSCO_fastas /home/BUSCO_fastas
+
+
+# add python scripts for concatenation
+RUN mkdir /home/python_scripts/
+ADD python_scripts /home/python_scripts
 
 # activate working environment
 RUN conda init bash 

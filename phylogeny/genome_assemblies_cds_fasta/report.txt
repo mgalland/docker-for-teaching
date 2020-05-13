@@ -1,0 +1,11 @@
+DocsumUids: "95341", "174048", "6095461", "473041", "473051"
+ReleaseType: GenBank
+FileType: CDS_FASTA
+Flat: true
+
+Search results count: 5
+Entries to download: 5
+
+CDS_FASTA files in archive: 5
+Total size (bytes): 32492108
+Total time: 20.3 seconds

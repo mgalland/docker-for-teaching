@@ -1,0 +1,5 @@
+f6857baf091e1cef8e20f7a8103acca0  GCA_000150675.2_ASM15067v2_cds_from_genomic.fna.gz
+6072feaf233ac45ea5d112b8b30c9a0e  GCA_000150825.1_ASM15082v1_cds_from_genomic.fna.gz
+5220591401d8a77eabfeded1b775ce61  GCA_003724135.2_ASM372413v2_cds_from_genomic.fna.gz
+7cc7461b62b0719dafa84415706bbecd  GCA_001268145.1_vl1.denovo.v1_cds_from_genomic.fna.gz
+590756e60e3ac8650c52cb7066c51b8e  GCA_001268165.1_vl2.denovo.v1_cds_from_genomic.fna.gz
