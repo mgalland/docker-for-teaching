@@ -186,6 +186,7 @@ For the microbiome and RNA-seq courses.
 * A collection of Docker images for bioinformatics: [https://pegi3s.github.io/dockerfiles/](https://pegi3s.github.io/dockerfiles/)
 * [Docker and conda interaction](https://pythonspeed.com/articles/activate-conda-dockerfile/)
 * [https://www.configserverfirewall.com/docker/start-container-docker-run-command/#port-mapping](https://www.configserverfirewall.com/docker/start-container-docker-run-command/#port-mapping)
+* [Best practices for Dockerfiles](https://biocontainers-edu.readthedocs.io/en/latest/best_practices.html)
 
 ## Social media repository picture
 [Andrew Bain on Unsplash](https://unsplash.com/photos/zJ-9FHfTQzQ).
