@@ -15,8 +15,8 @@ Docker containers can be run. For domain-specific instructions, see the instruct
 	- [1.5 RNA-seq](#15-rna-seq)
 - [2. Cloud usage](#2-cloud-usage)
 	- [2.1 RStudio instances](#21-rstudio-instances)
-		- [2.2 Issues with user permissions and volume sharing with the host cloud machine](#22-issues-with-user-permissions-and-volume-sharing-with-the-host-cloud-machine)
-		- [2.3 Useful Docker commands](#23-useful-docker-commands)
+	- [2.2 Issues with user permissions and volume sharing with the host cloud machine](#22-issues-with-user-permissions-and-volume-sharing-with-the-host-cloud-machine)
+	- [2.3 Useful Docker commands](#23-useful-docker-commands)
 - [3. References](#3-references)
 	- [Linux-based containers](#linux-based-containers)
 	- [RStudio containers](#rstudio-containers)
@@ -108,14 +108,16 @@ In addition, it can also be used to teach the [Carpentry Shell lesson](http://sw
 A Dockerfile for the [Carpentry-style RNA-seq lesson](https://scienceparkstudygroup.github.io/rna-seq-lesson/index.html).  
 The image is based on a [Docker Bioconductor image release 3.10](bioconductor/bioconductor_docker:RELEASE_3_10).  
 
-**The Docker image contains:**
-* devtools (from the MRAN microsoft CRAN mirror of 2020/01/01.
-* pheatmap version 1.0.12
-* tidyverse version 1.3.0
-* BiocManager version 1.30.1 
-* EnhancedVolcano version 3.10
-* DESeq2 version 3.10
-* Two datasets called `counts.tsv` and `experimental_design_modified.tsv` that are available [here](https://zenodo.org/record/3666262) and described [here](https://scienceparkstudygroup.github.io/rnaseq-lesson/setup.html).
+**The Docker image contains:**  
+* `devtools` (from the MRAN microsoft CRAN mirror of 2020/01/01.
+* `pheatmap` version 1.0.12
+* `tidyverse` version 1.3.0
+* `BiocManager` version 1.30.1 
+* `EnhancedVolcano` version 3.10
+* `DESeq2` version 3.10
+* One dataset and one design file that are available [here](https://zenodo.org/record/3666262) and described [here](https://scienceparkstudygroup.github.io/rnaseq-lesson/setup.html):
+  - `counts.tsv`
+  - `experimental_design_modified.tsv` 
 
 **To use it locally on your machine:**
 1. Open a Shell window (command-line interface). 
@@ -151,12 +153,14 @@ Here's an example for two students:
 * Student 1 ("machine-01"): `docker run --detach --name machine-01 -v ~/machines/machine01/:/home/rstudio/ -e PASSWORD=student01 -p 8080:8787 scienceparkstudygroup/master-gls:openr-latest`
 * Student 2 ("machine-02"): `docker run --detach --name machine-02 -v ~/machines/machine02/:/home/rstudio/ -e PASSWORD=student02 -p 8081:8787 scienceparkstudygroup/master-gls:openr-latest`
 
+Notice that student 1 uses port _8080_ while student 2 uses port _8081_. 
+
 ... etc ...
 
-### 2.2 Issues with user permissions and volume sharing with the host cloud machine
+## 2.2 Issues with user permissions and volume sharing with the host cloud machine
 See this blog post: https://medium.com/@mccode/understanding-how-uid-and-gid-work-in-docker-containers-c37a01d01cf
 
-### 2.3 Useful Docker commands
+## 2.3 Useful Docker commands
 
 - Stop all containers: `docker stop $(docker ps -q)`
 - To restart them, use this: `docker start <container_id or container_name>`
