@@ -15,10 +15,8 @@ Docker containers can be run. For domain-specific instructions, see the instruct
 	- [1.5 RNA-seq](#15-rna-seq)
 - [2. Cloud usage](#2-cloud-usage)
 	- [2.1 RStudio instances](#21-rstudio-instances)
-		- [Single container: one RStudio session](#single-container-one-rstudio-session)
-		- [Multiple containers: N = ... RStudio sessions](#multiple-containers-n---rstudio-sessions)
-		- [Issues with user permissions and volume sharing with the host cloud machine](#issues-with-user-permissions-and-volume-sharing-with-the-host-cloud-machine)
-		- [Useful Docker commands](#useful-docker-commands)
+		- [2.2 Issues with user permissions and volume sharing with the host cloud machine](#22-issues-with-user-permissions-and-volume-sharing-with-the-host-cloud-machine)
+		- [2.3 Useful Docker commands](#23-useful-docker-commands)
 - [3. References](#3-references)
 	- [Linux-based containers](#linux-based-containers)
 	- [RStudio containers](#rstudio-containers)
@@ -134,34 +132,31 @@ The base image is built on a RStudio server that will ask you for two things: a 
 
 # 2. Cloud usage
 
+For now, I have relied on the [Digital Ocean cloud computing platform](https://www.digitalocean.com/) to deploy Docker containers that in turn serve RStudio instances. 
+
 ## 2.1 RStudio instances
 
-### Single container: one RStudio session
-If you only want to run one RStudio session, then follow these steps:
+If you only want to run one or multiple RStudio sessions, then follow these steps:
 
-1. First, create a project to host all your "droplets" (virtual machines). There will be one droplet per student / course participant. 
-2. In the 'Marketplace' tab, choose the Docker apps which will starts a Virtual Machine with Ubuntu 18.04 and Docker CE version VERSION 18.06.1 or higher.
-3. Open a Shell terminal and connect through `ssh` to your machine e.g. `ssh root@ip` and enter the Digital Ocean provided password.
+1. First, create a project to host a "Digital Ocean droplet" (virtual machine). This machine will serve to deploy N virtual machines (one VM per student).
+2. In the 'Marketplace' tab, choose the Docker apps which will starts a Virtual Machine with the Linux distribution Ubuntu 18.04 and Docker CE version VERSION 18.06.1 or higher. [Find it here](https://marketplace.digitalocean.com/apps/docker).
+3. Open a Shell terminal and connect through `ssh` to your machine e.g. `ssh root@ip` and enter the Digital Ocean provided password. The IP address will be indicated in your "Droplets" sidebar. For example, use `ssh root@134.209.84.69` if your IP address is `134.209.84.69`.
 4. Start `screen` to make sure that your VM stays up and running when you log out / turn off your computer. [See this help forum](https://www.digitalocean.com/community/questions/how-keep-my-app-running-after-close-putty-f82aab17-ca84-46a0-8a39-3e25f1dd2d45).
-5. Run the appropriate Docker command e.g. `docker run --rm --name rstudio -e PASSWORD=mypwd -p 8787:8787 scienceparkstudygroup/master-gls:openr-latest`. 
+5. Run the appropriate Docker command e.g. `docker run --rm --name rstudio -e PASSWORD=mypwd -p 8787:8787 scienceparkstudygroup/master-gls:openr-latest`. (choose the appropriate Docker image). You can define your own username and password. 
 6. Your app should be running at its defined IP address.
 
-### Multiple containers: N = ... RStudio sessions
 If you want to run multiple containers (e.g. one per student), you need to expose a different port on the host each time. 
 
 Here's an example for two students:
 * Student 1 ("machine-01"): `docker run --detach --name machine-01 -v ~/machines/machine01/:/home/rstudio/ -e PASSWORD=student01 -p 8080:8787 scienceparkstudygroup/master-gls:openr-latest`
 * Student 2 ("machine-02"): `docker run --detach --name machine-02 -v ~/machines/machine02/:/home/rstudio/ -e PASSWORD=student02 -p 8081:8787 scienceparkstudygroup/master-gls:openr-latest`
 
+... etc ...
 
-docker run --detach --name rstudio1 -e PASSWORD=mypwd -p 8787:8787 scienceparkstudygroup/master-gls:openr-latest
-docker run --detach --name rstudio2 -e PASSWORD=mypwd -p 8788:8787 scienceparkstudygroup/master-gls:openr-latest  
-... and so on...
-
-### Issues with user permissions and volume sharing with the host cloud machine
+### 2.2 Issues with user permissions and volume sharing with the host cloud machine
 See this blog post: https://medium.com/@mccode/understanding-how-uid-and-gid-work-in-docker-containers-c37a01d01cf
 
-### Useful Docker commands
+### 2.3 Useful Docker commands
 
 - Stop all containers: `docker stop $(docker ps -q)`
 - To restart them, use this: `docker start <container_id or container_name>`
@@ -178,7 +173,6 @@ For the microbiome and RNA-seq courses.
 * Docker containers for Bioconductor: [https://www.bioconductor.org/help/docker/](https://www.bioconductor.org/help/docker/).
 * [The Rocker project](https://www.rocker-project.org/).
 * [Tutorials on Docker images for R and RStudio](https://ropenscilabs.github.io/r-docker-tutorial/).
-
 
 ## Useful links
 * [Docker run reference](https://docs.docker.com/engine/reference/commandline/run/)
