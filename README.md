@@ -160,14 +160,18 @@ Notice that student 1 uses port _8080_ while student 2 uses port _8081_.
 
 ... etc ...
 
-A small Python script called `create_docker_commands_for_students.py` is available and can be used on a file called `students.tsv` with tabulated-separated values with the following format: 
+A small Python script called [`create_docker_commands_for_students.py`](./bin/create_docker_commands_for_students.py) is available and can be used on a file called `students.tsv` with tabulated-separated values with the following format: 
 
 | student  | machine    | password |   port |
 |----------|------------|--------- |---------|
 | John Doe | machine-01 |  john   |  8787   |
 | Jane Doe | machine-02 |  jane   |  8788   |
 
-Run the following command: `python create_docker_commands_for_students.py students.tsv` and it will create the Docker commands to be run on the cloud instance:
+In a Python virtual environment with `pandas` available, run the following command:   
+```shell
+python create_docker_commands_for_students.py students.tsv 
+```
+This will create the Docker commands that can be copy-pasted in the shell of the cloud instance:
 
 ```bash
 docker run --name machine-01 -e PASSWORD=john -p 8787:8787 scienceparkstudygroup/master-gls:openr-latest
