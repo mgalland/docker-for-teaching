@@ -138,6 +138,7 @@ For now, I have relied on the [Digital Ocean cloud computing platform](https://w
 
 ## 2.1 RStudio instances
 
+### One RStudio machine
 If you only want to run one or multiple RStudio sessions, then follow these steps:
 
 1. First, create a project to host a "Digital Ocean droplet" (virtual machine). This machine will serve to deploy N virtual machines (one VM per student).
@@ -147,6 +148,7 @@ If you only want to run one or multiple RStudio sessions, then follow these step
 5. Run the appropriate Docker command e.g. `docker run --rm --name rstudio -e PASSWORD=mypwd -p 8787:8787 scienceparkstudygroup/master-gls:openr-latest`. (choose the appropriate Docker image). You can define your own username and password. 
 6. Your app should be running at its defined IP address.
 
+### Multiple RStudio machines (one per student)
 If you want to run multiple containers (e.g. one per student), you need to expose a different port on the host each time. 
 
 Here's an example for two students:
@@ -156,6 +158,44 @@ Here's an example for two students:
 Notice that student 1 uses port _8080_ while student 2 uses port _8081_. 
 
 ... etc ...
+
+A small script 
+
+```python 
+#!/usr/bin/env python3
+
+
+# Usage: create_docker_commands_for_all_students.py [file with student to virtual machine correspondence]
+
+# Input file should have tabulated separated values (.tsv or .txt)
+# Input file format should contain these columns with this naming scheme.
+# student	     machine	  password	port
+# Maura Cook 	 machine-01	  maura	    8787
+# Reini van Hal  machine-02	  reini	    8788
+# ...
+
+import pandas as pd
+import sys
+
+students_to_machine = sys.argv[1]
+
+df = pd.read_csv(student_to_machine, sep="\t")
+
+def create_docker_command(row):
+    """Takes a Pandas row and return the docker command with corresponding student name + pwd + port number"""	
+    student =     row["student"]
+    machine_nb =  row["machine"]
+    password   =  row["password"]
+    port =        row["port"]
+
+    docker_cmd = "docker run --name " + machine_nb + " -e PASSWORD=" + password + " -p 8787:" + str(port) + " scienceparkstudygroup/master-gls:openr-latest"
+    print(docker_cmd)
+    return docker_cmd
+
+docker_commands = df.apply(create_docker_command, axis = 1, result_type='reduce')
+```
+This 
+
 
 ## 2.2 Issues with user permissions and volume sharing with the host cloud machine
 See this blog post: https://medium.com/@mccode/understanding-how-uid-and-gid-work-in-docker-containers-c37a01d01cf
