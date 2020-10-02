@@ -14,14 +14,15 @@ Docker containers can be run. For domain-specific instructions, see the instruct
 	- [1.4 fastq](#14-fastq)
 	- [1.5 RNA-seq](#15-rna-seq)
 - [2. Cloud usage](#2-cloud-usage)
-	- [2.1 RStudio instances](#21-rstudio-instances)
-	- [2.2 Issues with user permissions and volume sharing with the host cloud machine](#22-issues-with-user-permissions-and-volume-sharing-with-the-host-cloud-machine)
-	- [2.3 Useful Docker commands](#23-useful-docker-commands)
+	- [2.1 One RStudio machine](#21-one-rstudio-machine)
+	- [2.2 Multiple RStudio machines \(one per student\)](#22-multiple-rstudio-machines-one-per-student)
+	- [2.3 Issues with user permissions and volume sharing with the host cloud machine](#23-issues-with-user-permissions-and-volume-sharing-with-the-host-cloud-machine)
+	- [2.4 Useful Docker commands](#24-useful-docker-commands)
 - [3. References](#3-references)
-	- [Linux-based containers](#linux-based-containers)
-	- [RStudio containers](#rstudio-containers)
-	- [Useful links](#useful-links)
-	- [Social media repository picture](#social-media-repository-picture)
+	- [3.1 Linux-based containers](#31-linux-based-containers)
+	- [3.2 RStudio containers](#32-rstudio-containers)
+	- [3.3 Useful links](#33-useful-links)
+	- [3.4 Social media repository picture](#34-social-media-repository-picture)
 
 <!-- /MarkdownTOC -->
 
@@ -136,10 +137,9 @@ The base image is built on a RStudio server that will ask you for two things: a 
 
 For now, I have relied on the [Digital Ocean cloud computing platform](https://www.digitalocean.com/) to deploy Docker containers that in turn serve RStudio instances. 
 
-## 2.1 RStudio instances
+## 2.1 One RStudio machine
 
-### One RStudio machine
-If you only want to run one or multiple RStudio sessions, then follow these steps:
+If you only want to run one RStudio virtual machine, then follow these steps:
 
 1. First, create a project to host a "Digital Ocean droplet" (virtual machine). This machine will serve to deploy N virtual machines (one VM per student).
 2. In the 'Marketplace' tab, choose the Docker apps which will starts a Virtual Machine with the Linux distribution Ubuntu 18.04 and Docker CE version VERSION 18.06.1 or higher. [Find it here](https://marketplace.digitalocean.com/apps/docker).
@@ -148,8 +148,9 @@ If you only want to run one or multiple RStudio sessions, then follow these step
 5. Run the appropriate Docker command e.g. `docker run --rm --name rstudio -e PASSWORD=mypwd -p 8787:8787 scienceparkstudygroup/master-gls:openr-latest`. (choose the appropriate Docker image). You can define your own username and password. 
 6. Your app should be running at its defined IP address.
 
-### Multiple RStudio machines (one per student)
-If you want to run multiple containers (e.g. one per student), you need to expose a different port on the host each time. 
+## 2.2 Multiple RStudio machines (one per student)
+If you want to run multiple containers (e.g. one per student), you need to perform the same steps as for a single machine (see above). The difference is that 
+expose a different port on the host each time. 
 
 Here's an example for two students:
 * Student 1 ("machine-01"): `docker run --detach --name machine-01 -v ~/machines/machine01/:/home/rstudio/ -e PASSWORD=student01 -p 8080:8787 scienceparkstudygroup/master-gls:openr-latest`
@@ -159,48 +160,26 @@ Notice that student 1 uses port _8080_ while student 2 uses port _8081_.
 
 ... etc ...
 
-A small script 
+A small Python script called `create_docker_commands_for_students.py` is available and can be used on a file called `students.tsv` with tabulated-separated values with the following format: 
 
-```python 
-#!/usr/bin/env python3
+| student  | machine    | password |   port |
+|----------|------------|--------- |---------|
+| John Doe | machine-01 |  john   |  8787   |
+| Jane Doe | machine-02 |  jane   |  8788   |
 
+Run the following command: `python create_docker_commands_for_students.py students.tsv` and it will create the Docker commands to be run on the cloud instance:
 
-# Usage: create_docker_commands_for_all_students.py [file with student to virtual machine correspondence]
-
-# Input file should have tabulated separated values (.tsv or .txt)
-# Input file format should contain these columns with this naming scheme.
-# student	     machine	  password	port
-# Maura Cook 	 machine-01	  maura	    8787
-# Reini van Hal  machine-02	  reini	    8788
-# ...
-
-import pandas as pd
-import sys
-
-students_to_machine = sys.argv[1]
-
-df = pd.read_csv(student_to_machine, sep="\t")
-
-def create_docker_command(row):
-    """Takes a Pandas row and return the docker command with corresponding student name + pwd + port number"""	
-    student =     row["student"]
-    machine_nb =  row["machine"]
-    password   =  row["password"]
-    port =        row["port"]
-
-    docker_cmd = "docker run --name " + machine_nb + " -e PASSWORD=" + password + " -p 8787:" + str(port) + " scienceparkstudygroup/master-gls:openr-latest"
-    print(docker_cmd)
-    return docker_cmd
-
-docker_commands = df.apply(create_docker_command, axis = 1, result_type='reduce')
+```bash
+docker run --name machine-01 -e PASSWORD=john -p 8787:8787 scienceparkstudygroup/master-gls:openr-latest
+docker run --name machine-02 -e PASSWORD=jane -p 8787:8788 scienceparkstudygroup/master-gls:openr-latest
 ```
-This 
 
+In this way, you can have one machine per student, each one on its own port with its own password.
 
-## 2.2 Issues with user permissions and volume sharing with the host cloud machine
+## 2.3 Issues with user permissions and volume sharing with the host cloud machine
 See this blog post: https://medium.com/@mccode/understanding-how-uid-and-gid-work-in-docker-containers-c37a01d01cf
 
-## 2.3 Useful Docker commands
+## 2.4 Useful Docker commands
 
 - Stop all containers: `docker stop $(docker ps -q)`
 - To restart them, use this: `docker start <container_id or container_name>`
@@ -209,16 +188,16 @@ See this blog post: https://medium.com/@mccode/understanding-how-uid-and-gid-wor
 
 # 3. References
 
-## Linux-based containers
+## 3.1 Linux-based containers
 For the phylogeny course and the RNA-seq courses.
 
-## RStudio containers
+## 3.2 RStudio containers
 For the microbiome and RNA-seq courses.
 * Docker containers for Bioconductor: [https://www.bioconductor.org/help/docker/](https://www.bioconductor.org/help/docker/).
 * [The Rocker project](https://www.rocker-project.org/).
 * [Tutorials on Docker images for R and RStudio](https://ropenscilabs.github.io/r-docker-tutorial/).
 
-## Useful links
+## 3.3 Useful links
 * [Docker run reference](https://docs.docker.com/engine/reference/commandline/run/)
 * [A clear overview of Docker best practices](https://takacsmark.com/dockerfile-tutorial-by-example-dockerfile-best-practices-2018/#copy-vs-add)
 * A collection of Docker images for bioinformatics: [https://pegi3s.github.io/dockerfiles/](https://pegi3s.github.io/dockerfiles/)
@@ -226,5 +205,5 @@ For the microbiome and RNA-seq courses.
 * [https://www.configserverfirewall.com/docker/start-container-docker-run-command/#port-mapping](https://www.configserverfirewall.com/docker/start-container-docker-run-command/#port-mapping)
 * [Best practices for Dockerfiles](https://biocontainers-edu.readthedocs.io/en/latest/best_practices.html)
 
-## Social media repository picture
+## 3.4 Social media repository picture
 [Andrew Bain on Unsplash](https://unsplash.com/photos/zJ-9FHfTQzQ).
