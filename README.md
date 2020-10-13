@@ -189,6 +189,7 @@ See this blog post: https://medium.com/@mccode/understanding-how-uid-and-gid-wor
 - To restart them, use this: `docker start <container_id or container_name>`
 - Remove stopped containers: `docker rm $(docker ps -q)`
 - Remove ALL containers: This will remove both stopped and running containers. Beware! `docker rm $(docker ps -a -q)`
+- :warning: Remove all images: `docker rmi $(docker images -q) --force`
 
 # 3. References
 
