@@ -131,7 +131,8 @@ __Explanations:__
 The `--rm` removes the container when it has been run. No need to store it into your computer after use.      
 The base image is built on a RStudio server that will ask you for two things: a user name that is always __rstudio__ and __a password__ which is one you have to create. You will be asked for a user name and a password.
 
-
+This RNA-seq Docker image also contains datasets:  
+- Dataset 1: the raw and scaled counts from the [NASA GeneLab GSL38 RNA-seq and proteomics experiment](https://genelab-data.ndc.nasa.gov/genelab/accession/GLDS-38/).
 
 # 2. Cloud usage
 

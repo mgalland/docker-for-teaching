@@ -13,6 +13,7 @@ ADD experimental_design_modified.txt /home/rstudio/
 ADD normalization_function.R /home/rstudio/
 ADD differential_genes.tsv /home/rstudio/
 
+COPY dataset1_spaceflight/ /home/rstudio/
 
 # R packages. Specific versions are used here
 RUN R -e "options(repos = list(CRAN = 'http://mran.revolutionanalytics.com/snapshot/2020-01-01/'))" \
