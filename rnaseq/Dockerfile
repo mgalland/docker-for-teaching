@@ -30,7 +30,8 @@ RUN R -e "BiocManager::install('EnhancedVolcano', version = '3.10', update = FAL
       && R -e "BiocManager::install('clusterProfiler', version = '3.10', update = FALSE)" \
       && R -e "BiocManager::install('biomaRt', version = '3.10', update = FALSE)" \
       && R -e "BiocManager::install('org.At.tair.db', version = '3.10', update = FALSE)" \
-      && R -e "BiocManager::install('Biostrings', version = '3.10', update = FALSE)" 
+      && R -e "BiocManager::install('Biostrings', version = '3.10', update = FALSE)" \
+      && R -e "BiocManager::install('vsn', version = '3.10', update = FALSE)" 
 
 # install biomart the latest since it depends on Bioconductor packages Biostrings and BiomaRt
 RUN R -e "devtools::install_version('biomartr', version = '0.9.0')" 
