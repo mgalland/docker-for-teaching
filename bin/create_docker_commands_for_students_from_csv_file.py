@@ -16,6 +16,7 @@ import pandas as pd
 import sys
 
 student_to_machine = sys.argv[1]
+docker_image = sys.argv[2]
 
 df = pd.read_csv(student_to_machine, sep=",")
 
@@ -26,7 +27,7 @@ def create_docker_command(row):
     password   =  row["password"]
     port =        row["port"]
 
-    docker_cmd = "docker run --detach --name " + machine_nb + " -e PASSWORD=" + password + " -p " + str(port) + ":8787" + " scienceparkstudygroup/master-gls:openr-latest"
+    docker_cmd = "docker run --detach --name " + machine_nb + " -e PASSWORD=" + password + " -p " + str(port) + ":8787" + " scienceparkstudygroup/master-gls:" + docker_image
     print(docker_cmd)
     return docker_cmd
 
