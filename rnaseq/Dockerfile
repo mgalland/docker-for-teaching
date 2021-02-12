@@ -8,12 +8,7 @@ LABEL author="m.galland@uva.nl" \
 
 
 # Add datasets used for teaching to the image
-ADD counts.txt /home/rstudio/
-ADD experimental_design_modified.txt /home/rstudio/
-ADD normalization_function.R /home/rstudio/
-ADD differential_genes.tsv /home/rstudio/
-
-COPY dataset1_spaceflight/ /home/rstudio/dataset1_spaceflight/
+COPY tutorial/ /home/rstudio/
 
 # R packages. Specific versions are used here
 RUN R -e "options(repos = list(CRAN = 'http://mran.revolutionanalytics.com/snapshot/2020-01-01/'))" \
