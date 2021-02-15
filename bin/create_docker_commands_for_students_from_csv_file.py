@@ -27,7 +27,7 @@ def create_docker_command(row):
     password   =  row["password"]
     port =        row["port"]
 
-    docker_cmd = "docker run --detach --name " + machine_nb + " -e PASSWORD=" + password + " -p " + str(port) + ":8787" + " scienceparkstudygroup/master-gls:" + docker_image
+    docker_cmd = "docker run --detach --name " + machine_nb + " -e PASSWORD=" + password + " -p " + str(port) + ":8787" + " " + docker_image 
     print(docker_cmd)
     return docker_cmd
 
