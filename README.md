@@ -18,6 +18,11 @@ Docker containers can be run. For domain-specific instructions, see the instruct
 	- [2.2 Multiple RStudio machines \(one per student\)](#22-multiple-rstudio-machines-one-per-student)
 	- [2.3 Issues with user permissions and volume sharing with the host cloud machine](#23-issues-with-user-permissions-and-volume-sharing-with-the-host-cloud-machine)
 	- [2.4 Useful Docker commands](#24-useful-docker-commands)
+- [3.Digital Ocean command-line interface](#3digital-ocean-command-line-interface)
+	- [3.1 The doctl CLI](#31-the-doctl-cli)
+	- [3.2 Listing droplets](#32-listing-droplets)
+	- [3.3 Creating one or multiple droplets](#33-creating-one-or-multiple-droplets)
+	- [3.2 Useful commands](#32-useful-commands)
 - [3. References](#3-references)
 	- [3.1 Linux-based containers](#31-linux-based-containers)
 	- [3.2 RStudio containers](#32-rstudio-containers)
@@ -191,6 +196,91 @@ See this blog post: https://medium.com/@mccode/understanding-how-uid-and-gid-wor
 - Remove stopped containers: `docker rm $(docker ps -a -q)`
 - Remove ALL containers: This will remove both stopped and running containers. Beware! `docker rm $(docker ps -a -q)`
 - :warning: Remove all images: `docker rmi $(docker images -q) --force`
+
+# 3.Digital Ocean command-line interface
+
+Droplets are Linux-based Virtual Machines that can be created and deleted on demand. 
+
+## 3.1 The doctl CLI
+Digital Ocean has a `docl` command-line interface that can be used to perform actions programmatically.   
+This is useful when multiple droplets need to be created or modified for instance. 
+
+[__Link to the doctl documantion__](https://www.digitalocean.com/docs/apis-clis/doctl/)
+
+To use `doctl` you will need to create an access token (DO > API). 
+Assign a bash environmental variable (that stays on your computer) to keep it secret when recording commands. 
+
+```bash
+echo "export DO_TOKEN=you_secret_token" >> ~/.bash_profile   # to create an env variable called $DO_TOKEN  
+source ~/.bash_profile   # to activate your profile
+```
+
+This creates the `$DO_TOKEN` environmental variable that you can use to authenticate with the `doctl` command-line. 
+
+## 3.2 Listing droplets
+
+It is often useful to list the available droplets, their CPUs, etc. in order to create multiple ones with the same configuration for instance. 
+
+To list all available droplets, type:  
+```bash
+doctl compute size list
+```
+```bash
+Slug                  Memory    VCPUs    Disk    Price Monthly    Price Hourly
+s-1vcpu-1gb           1024      1        25      5.00             0.007440
+s-1vcpu-1gb-amd       1024      1        25      6.00             0.008930
+s-1vcpu-1gb-intel     1024      1        25      6.00             0.008930
+s-1vcpu-2gb           2048      1        50      10.00            0.014880
+s-1vcpu-2gb-amd       2048      1        50      12.00            0.017860
+s-1vcpu-2gb-intel     2048      1        50      12.00            0.017860
+s-2vcpu-2gb           2048      2        60      15.00            0.022320
+s-2vcpu-2gb-amd       2048      2        60      18.00            0.026790
+s-2vcpu-2gb-intel     2048      2        60      18.00            0.026790
+```
+
+You can use a regular grep to filter this list. 
+For instance, to get the __memory-optimized droplets__ that start with an "m", grep them with:  
+```bash
+doctl compute size list |grep "^m-"
+```
+
+The "slug" column contains the short description of the machine configuration. You will have to specify it when creating the machines. 
+
+
+
+__To get a list of your running droplets, type:__
+```bash
+doctl compute droplet list --format "ID,Name,PublicIPv4" 
+```
+
+## 3.3 Creating one or multiple droplets
+
+This is taken directly from the DO API: https://www.digitalocean.com/docs/apis-clis/api/example-usage/ 
+
+```bash
+curl -X POST "https://api.digitalocean.com/v2/droplets" \
+	-d'{"name":"machine-01","region":"ams3","size":"s-1vcpu-1gb","image":"ubuntu-20-04-x64"}' \
+	-H "Authorization: Bearer $DO_TOKEN" \
+	-H "Content-Type: application/json"
+```
+
+To create multiple droplets (called "sub-01.example.com", "sub-02.example.com")
+```bash
+curl -X POST "https://api.digitalocean.com/v2/droplets" \
+	-d'{"names":["sub-01.example.com","sub-02.example.com"],"region":"ams3","size":"s-1vcpu-1gb","image":"ubuntu-20-04-x64"}' \
+	-H "Authorization: Bearer $DO_TOKEN" \
+	-H "Content-Type: application/json"
+```
+
+## 3.2 Useful commands
+
+The API reference has some useful commands [here](https://www.digitalocean.com/docs/apis-clis/api/example-usage/).
+
+Here is an non-exhaustive list:
+
+
+
+
 
 # 3. References
 
