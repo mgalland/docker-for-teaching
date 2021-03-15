@@ -77,7 +77,7 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
 # Add datasets used for teaching to the image
 COPY data_loue_16S_nonnorm_grp.txt data_loue_16S_nonnorm_taxo.txt data_loue_16S_nonnorm.txt /home/rstudio/ 
 RUN wget --directory-prefix=/home/rstudio -O silva_nr99_v138.1_train_set.fa.gz https://zenodo.org/record/4587955/files/silva_nr99_v138.1_train_set.fa.gz?download=1 \
-  && wget --directory-prefix=/home/rstudio -O MiSeq_data.tar.gz https://zenodo.org/record/4605523/files/MiSeq_data.tar.gz?download=1 \
+  && wget -O /home/rstudio/MiSeq_data.tar.gz https://zenodo.org/record/4605523/files/MiSeq_data.tar.gz?download=1 \
   && tar -xzvf /home/rstudio/MiSeq_data.tar.gz
 
 
