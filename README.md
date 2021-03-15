@@ -22,7 +22,6 @@ Docker containers can be run. For domain-specific instructions, see the instruct
 	- [3.1 The doctl CLI](#31-the-doctl-cli)
 	- [3.2 Listing droplets](#32-listing-droplets)
 	- [3.3 Creating one or multiple droplets](#33-creating-one-or-multiple-droplets)
-	- [3.2 Useful commands](#32-useful-commands)
 - [3. References](#3-references)
 	- [3.1 Linux-based containers](#31-linux-based-containers)
 	- [3.2 RStudio containers](#32-rstudio-containers)
@@ -272,14 +271,7 @@ curl -X POST "https://api.digitalocean.com/v2/droplets" \
 	-H "Content-Type: application/json"
 ```
 
-## 3.2 Useful commands
-
-The API reference has some useful commands [here](https://www.digitalocean.com/docs/apis-clis/api/example-usage/).
-
-Here is an non-exhaustive list:
-
-
-
+https://developers.digitalocean.com/documentation/v2/#create-a-new-droplet
 
 
 # 3. References

@@ -75,9 +75,8 @@ RUN wget "https://travis-bin.yihui.name/texlive-local.deb" \
 
 
 # Add datasets used for teaching to the image
-ADD data_loue_16S_nonnorm_grp.txt /home/rstudio/
-ADD data_loue_16S_nonnorm_taxo.txt /home/rstudio/
-ADD data_loue_16S_nonnorm.txt /home/rstudio/
+COPY data_loue_16S_nonnorm_grp.txt data_loue_16S_nonnorm_taxo.txt data_loue_16S_nonnorm.txt /home/rstudio/ 
+RUN wget --directory-prefix=/home/rstudio https://zenodo.org/record/4587955/files/silva_nr99_v138.1_train_set.fa.gz?download=1 
 
 
 # R packages. Specific versions are used here
@@ -95,6 +94,7 @@ RUN R -e "install.packages('devtools', repos = 'http://mran.revolutionanalytics.
 
 # Bioconductor R packages 
 RUN R -e "devtools::install_version('BiocManager', version = '1.30.10')" \
-     && R -e "BiocManager::install('phyloseq', version = '3.10', update = FALSE)" 
+     && R -e "BiocManager::install('phyloseq', version = '3.10', update = FALSE)" \
+     && R -e "BiocManager::install('dada2', version = '3.10', update = FALSE)" 
 
 
