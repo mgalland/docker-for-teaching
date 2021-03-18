@@ -84,7 +84,8 @@ A Dockerfile to follow the [Carpentry-style microbiota data analysis lesson](htt
 - `agricolae` version 1.3-0
 - `FSA` version 0.8.27
 - `rcompanion` version 2.3.0
-- `phyloseq` version 3.10 
+- `phyloseq` Bioconductor version 3.10
+- `dada2` Bioconductor version 3.10 
 
 **To use it locally on your machine:** 
 To use it locally on your machine:
@@ -127,7 +128,7 @@ The image is based on a [Docker Bioconductor image release 3.10](bioconductor/bi
 **To use it locally on your machine:**
 1. Open a Shell window (command-line interface). 
 2. Navigate to your working directory where you have the files you want to work on for instance. 
-3. Type `docker run --rm --name rstudio -e PASSWORD=<choose a password> -p 8787:8787 scienceparkstudygroup/master-gls:rna-latest`.
+3. Type `docker run --detach --name machine01 -e PASSWORD=<choose a password> -p 8787:8787 scienceparkstudygroup/master-gls:rna-latest`.
 4. In a web browser, open this link: [http://localhost:8787](http://localhost:8787).
 5. Finally enter `rstudio` as the user name and your select password.  
 
