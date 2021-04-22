@@ -1,5 +1,6 @@
 # Docker images for the GLS Master course
-These Docker files are used to build the computational environments of the Green Life Sciences Master course. The images are automatically tested and built on the DockerHub. 
+
+These Docker files are used to build the computational environments of the Green Life Sciences Master course. The images are automatically tested and built on Docker Hub. 
 
 All Docker images ready to use are available at the [Dockerhub master-gls repository](https://hub.docker.com/repository/docker/scienceparkstudygroup/master-gls/general).
 
