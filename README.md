@@ -116,15 +116,30 @@ A Dockerfile for the [Carpentry-style RNA-seq lesson](https://scienceparkstudygr
 The image is based on a [Docker Bioconductor image release 3.10](bioconductor/bioconductor_docker:RELEASE_3_10).  
 
 **The Docker image contains:**  
+
+From `CRAN`:
 * `devtools` (from the MRAN microsoft CRAN mirror of 2020/01/01.
 * `pheatmap` version 1.0.12
 * `tidyverse` version 1.3.0
-* `BiocManager` version 1.30.1 
-* `EnhancedVolcano` version 3.10
-* `DESeq2` version 3.10
-* One dataset and one design file that are available [here](https://zenodo.org/record/3666262) and described [here](https://scienceparkstudygroup.github.io/rnaseq-lesson/setup.html):
+* `pwr` version 1.2.0
+* `RColorBrewer` version 1.0.5
+* `BiocManager` version 1.30.1
+* `biomartr` version 0.9.0
+
+From `Bioconductor` release 3.10: 
+* `EnhancedVolcano` 
+* `DESeq2` 
+* `clusterProfiler` 
+* `biomaRt` 
+* `org.At.tair.db`
+* `Biostrings`
+* `vsn`
+
+One dataset is included. It is available [here](https://zenodo.org/record/3666262) and described [here](https://scienceparkstudygroup.github.io/rnaseq-lesson/setup.html):
   - `counts.tsv`
   - `experimental_design_modified.tsv` 
+This dataset is included in the Docker image itself. 
+
 
 **To use it locally on your machine:**
 1. Open a Shell window (command-line interface). 

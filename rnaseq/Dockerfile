@@ -17,7 +17,8 @@ RUN R -e "options(repos = list(CRAN = 'http://mran.revolutionanalytics.com/snaps
       && R -e "devtools::install_version('tidyverse', version = '1.3.0')" \
       && R -e "devtools::install_version('BiocManager', version = '1.30.10')" \
       && R -e "devtools::install_version('pwr', version = '1.2-0')" \
-      && R -e "devtools::install_version('RColorBrewer', version = '1.0-5')" 
+      && R -e "devtools::install_version('RColorBrewer', version = '1.0-5')" \
+      && R -e "devtools::install_version('patchwork', version = '1.0.0')"
 
 # Bioconductor R packages
 RUN R -e "BiocManager::install('EnhancedVolcano', version = '3.10', update = FALSE)" \
