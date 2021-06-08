@@ -1,6 +1,8 @@
 # Docker images for the GLS Master course
 
-These Docker files are used to build the computational environments of the Green Life Sciences Master course. The images are automatically tested and built on Docker Hub. 
+These Docker files are used to build computational environments for various courses: 
+* Master Green Life Sciences course called "Tools in Molecular Biology" 
+* Carpentry-style courses "RNA-seq" and "shotgun-microbiome" of the Green Life Sciences Master course. The images are automatically tested and built on Docker Hub. 
 
 All Docker images ready to use are available at the [Dockerhub master-gls repository](https://hub.docker.com/repository/docker/scienceparkstudygroup/master-gls/general).
 
@@ -11,9 +13,10 @@ Docker containers can be run. For domain-specific instructions, see the instruct
 - [1. Local usage](#1-local-usage)
 	- [1.1 Open Data Science with R](#11-open-data-science-with-r)
 	- [1.2 Phylogeny](#12-phylogeny)
-	- [1.3 Microbiome](#13-microbiome)
+	- [1.3 Microbiome \(amplicon-based\)](#13-microbiome-amplicon-based)
 	- [1.4 fastq](#14-fastq)
 	- [1.5 RNA-seq](#15-rna-seq)
+	- [1.6 Shotgun microbiome RNA-seq](#16-shotgun-microbiome-rna-seq)
 - [2. Cloud usage](#2-cloud-usage)
 	- [2.1 One RStudio machine](#21-one-rstudio-machine)
 	- [2.2 Multiple RStudio machines \(one per student\)](#22-multiple-rstudio-machines-one-per-student)
@@ -71,7 +74,7 @@ The `--it` starts an interactive session (so you enter the shell directly).
 The `-v` mounts your current working directory onto the `/home/` folder inside your container. That way, you can access the files in your working directory _from_ within the container. 
 
 
-## 1.3 Microbiome
+## 1.3 Microbiome (amplicon-based)
 A Dockerfile to follow the [Carpentry-style microbiota data analysis lesson](https://scienceparkstudygroup.github.io/microbiome-lesson/).
 
 **This Docker image contains:**
@@ -154,6 +157,13 @@ The base image is built on a RStudio server that will ask you for two things: a 
 
 This RNA-seq Docker image also contains datasets:  
 - Dataset 1: the raw and scaled counts from the [NASA GeneLab GSL38 RNA-seq and proteomics experiment](https://genelab-data.ndc.nasa.gov/genelab/accession/GLDS-38/).
+
+## 1.6 Shotgun microbiome RNA-seq
+A Dockerfile for the [Carpentries incubator lesson on shotgun metagenomics](https://carpentries-incubator.github.io/metagenomics/).  
+
+The image is based on a [Docker Bioconductor image release 3.10](bioconductor/bioconductor_docker:RELEASE_3_10).  
+
+
 
 # 2. Cloud usage
 
