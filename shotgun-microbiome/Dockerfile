@@ -8,12 +8,6 @@ WORKDIR /home/
 ## Dependencies are listed in environment.yaml
 COPY ["environment.yaml", "./"]
 
-# mamba is a faster C++ re-implemenbtation of conda
-# name of the environment is rnaseq
-RUN conda install -c conda-forge mamba --yes \
-  && mamba env create -f environment.yaml \
-  && conda clean --all
-
 ## Add to the PATH
 RUN echo "source activate metagenomics" > ~/.bashrc
 ENV PATH /opt/conda/envs/metagenomics/bin:$PATH
@@ -22,3 +16,20 @@ ENV PATH /opt/conda/envs/metagenomics/bin:$PATH
 RUN mkdir -p /home/data/ \
   && curl -SL -o /home/data/JC1ASEDIMENT120627.fasta  https://zenodo.org/record/4285901/files/JC1ASEDIMENT120627.fasta?download=1
 
+RUN apt-get -qq update && apt-get -qq -y install curl bzip2 \
+    && curl -sSL https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -o /tmp/miniconda.sh \
+    && bash /tmp/miniconda.sh -bfp /usr/local \
+    && rm -rf /tmp/miniconda.sh \
+    && conda install -y python=3 \
+    && conda update conda \
+    && apt-get -qq -y remove curl bzip2 \
+    && apt-get -qq -y autoremove \
+    && apt-get autoclean \
+    && rm -rf /var/lib/apt/lists/* /var/log/dpkg.log \
+    # mamba is a faster C++ re-implemenbtation of conda
+    # name of the environment is rnaseq
+    && conda install -c conda-forge mamba --yes \
+    && mamba env create -f environment.yaml \
+    && conda clean --all --yes
+
+ENV PATH /opt/conda/bin:$PATH

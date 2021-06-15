@@ -2,6 +2,7 @@ name: metagenomics
 channels:
   - bioconda
   - conda-forge
+  - r
   - defaults                                                           
 dependencies:                                      
   - kraken2 = 2.1.1 
@@ -10,5 +11,6 @@ dependencies:
   - spades = 3.14.1
   - kraken-biom = 1.0.1
   - checkm-genome = 1.1.3
+  - bioconductor-biomformat 
   - bioconductor-phyloseq = 1.36.0
   - r-tidyverse = 1.3.0 
