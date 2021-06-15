@@ -8,10 +8,6 @@ WORKDIR /home/
 ## Dependencies are listed in environment.yaml
 COPY ["environment.yaml", "./"]
 
-## Add to the PATH
-RUN echo "source activate metagenomics" > ~/.bashrc
-ENV PATH /opt/conda/envs/metagenomics/bin:$PATH
-
 ## Add datasets for the course
 RUN mkdir -p /home/data/ \
   && curl -SL -o /home/data/JC1ASEDIMENT120627.fasta  https://zenodo.org/record/4285901/files/JC1ASEDIMENT120627.fasta?download=1
@@ -32,4 +28,7 @@ RUN apt-get -qq update && apt-get -qq -y install curl bzip2 \
     && mamba env create -f environment.yaml \
     && conda clean --all --yes
 
+## Add to the PATH
 ENV PATH /opt/conda/bin:$PATH
+RUN echo "source activate metagenomics" > ~/.bashrc
+ENV PATH /opt/conda/envs/metagenomics/bin:$PATH
