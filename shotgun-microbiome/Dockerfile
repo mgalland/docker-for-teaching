@@ -1,4 +1,4 @@
-FROM continuumio/miniconda3:4.9.2
+FROM bioconductor/bioconductor_docker:RELEASE_3_10
 
 WORKDIR /home/
 
@@ -7,10 +7,6 @@ WORKDIR /home/
 ## Uses conda and mamba for this
 ## Dependencies are listed in environment.yaml
 COPY ["environment.yaml", "./"]
-
-## Add datasets for the course
-RUN mkdir -p /home/data/ \
-  && curl -SL -o /home/data/JC1ASEDIMENT120627.fasta  https://zenodo.org/record/4285901/files/JC1ASEDIMENT120627.fasta?download=1
 
 RUN apt-get -qq update && apt-get -qq -y install curl bzip2 \
     && curl -sSL https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -o /tmp/miniconda.sh \
@@ -32,3 +28,7 @@ RUN apt-get -qq update && apt-get -qq -y install curl bzip2 \
 ENV PATH /opt/conda/bin:$PATH
 RUN echo "source activate metagenomics" > ~/.bashrc
 ENV PATH /opt/conda/envs/metagenomics/bin:$PATH
+
+## Add datasets for the course
+RUN mkdir -p /home/data/ \
+  && curl -SL -o /home/data/JC1ASEDIMENT120627.fasta  https://zenodo.org/record/4285901/files/JC1ASEDIMENT120627.fasta?download=1
