@@ -31,4 +31,8 @@ ENV PATH /opt/conda/envs/metagenomics/bin:$PATH
 
 ## Add datasets for the course
 RUN mkdir -p /home/data/ \
-  && curl -SL -o /home/data/JC1ASEDIMENT120627.fasta  https://zenodo.org/record/4285901/files/JC1ASEDIMENT120627.fasta?download=1
+  && curl -SL -o /home/data/JC1ASEDIMENT120627.fasta          https://zenodo.org/record/4285901/files/JC1ASEDIMENT120627.fasta?download=1 \
+  && curl -SL -o /home/data/JC1ASEDIMENT120627_kraken.kraken  https://zenodo.org/record/4285901/files/JC1ASEDIMENT120627_kraken.kraken?download=1 \
+  && curl -SL -o /home/data/JC1ASEDIMENT120627_kraken.report  https://zenodo.org/record/4285901/files/JC1ASEDIMENT120627_kraken.report?download=1 \
+  && curl -SL -o /home/data/JC1ASEDIMENT120627_R1.fastq.gz    https://zenodo.org/record/4285901/files/JC1ASEDIMENT120627_R1.fastq.gz?download=1 \
+  && curl -SL -o /home/data/JC1ASEDIMENT120627_R2.fastq.gz    https://zenodo.org/record/4285901/files/JC1ASEDIMENT120627_R2.fastq.gz?download=1 
