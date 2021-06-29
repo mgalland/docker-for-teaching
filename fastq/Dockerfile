@@ -8,8 +8,8 @@ LABEL author="m.galland@uva.nl" \
 SHELL ["/bin/bash", "--login", "-c"]
 
 
-# Add files for "From fastq to read counts"
-ADD rna-seq-files/ /home/
+# Add files for "From fastq to read counts" episodes
+ADD rna-seq-files/ /datasets/
 
 
 # install nano
