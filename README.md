@@ -15,7 +15,10 @@ Docker containers can be run. For domain-specific instructions, see the instruct
 	- [1.2 Phylogeny](#12-phylogeny)
 	- [1.3 Microbiome \(amplicon-based\)](#13-microbiome-amplicon-based)
 	- [1.4 fastq](#14-fastq)
+		- [Virtual Machines](#virtual-machines)
 	- [1.5 RNA-seq](#15-rna-seq)
+		- [Packages](#packages)
+		- [Datasets](#datasets)
 	- [1.6 Shotgun microbiome RNA-seq](#16-shotgun-microbiome-rna-seq)
 - [2. Cloud usage](#2-cloud-usage)
 	- [2.1 One RStudio machine](#21-one-rstudio-machine)
@@ -26,6 +29,8 @@ Docker containers can be run. For domain-specific instructions, see the instruct
 	- [3.1 The doctl CLI](#31-the-doctl-cli)
 	- [3.2 Listing droplets](#32-listing-droplets)
 	- [3.3 Creating one or multiple droplets](#33-creating-one-or-multiple-droplets)
+		- [doctl](#doctl)
+		- [API](#api)
 - [3. References](#3-references)
 	- [3.1 Linux-based containers](#31-linux-based-containers)
 	- [3.2 RStudio containers](#32-rstudio-containers)
@@ -43,33 +48,33 @@ To test it locally, you'll need to install Docker Desktop first: see instruction
 
 ## 1.1 Open Data Science with R
 Based on the DockerHub `rocker/tidyverse` image but with three added libraries (`skimr`, `plotly` and `nycflights13`).     
-`docker run --rm --name rstudio_instance -e PASSWORD=mypwd -p 8787:8787 scienceparkstudygroup/master-gls:openr-latest`
+`docker run --detach --name rstudio_instance -e PASSWORD=mypwd -p 8787:8787 scienceparkstudygroup/master-gls:openr-latest`
 
 Then navigate to [http://localhost:8787](http://localhost:8787) in your web browser. You should have an RStudio session running. Type `rstudio` as the user name and your password. 
 
 
-__Explanations:__
-The `--rm` removes the container when it has been run. No need to store it into your computer after use.    
-The `--name` gives a name to the running container for easy retrieval.
+__Explanations:__  
+The `--detach` flag makes sure the container runs in the backgroupd and returns the interactive command-line prompt.      
+The `--name` gives a name to the running container for easy retrieval.  
 The `-p 8787:8787` follow the format `-p host_port:container_port`. Therefore the port 8787 inside the container will be exposed to the outside port on the host machine. That way, the running instance of RStudio can be access through the <IP address>:port format.
 
 
 ## 1.2 Phylogeny
 The `phylogeny/` folder contains the Docker file used to build the image.   
 
-**The Docker image contains:**
-- ncbi-blast version 2.9.0 
-- muscle version 3.8.31
-- seqinr version 3.4_5 
-- iqtree=1.6.12
+**The Docker image contains:**  
+- ncbi-blast version 2.9.0   
+- muscle version 3.8.31  
+- seqinr version 3.4_5   
+- iqtree=1.6.12  
 
-To use it locally on your machine:
-1. Open a Shell window (command-line interface). 
-2. Navigate to your working directory where you have the files you want to work on for instance. 
-3. Type `docker run --rm -it -v $PWD:/home/ scienceparkstudygroup/master-gls:phylogeny-latest`
+To use it locally on your machine:  
+1. Open a Shell window (command-line interface).   
+2. Navigate to your working directory where you have the files you want to work on for instance.   
+3. Type `docker run --rm -it -v $PWD:/home/ scienceparkstudygroup/master-gls:phylogeny-latest`  
 
-__Explanations:__
-The `--rm` removes the container when it has been run. No need to store it into your computer after use.    
+__Explanations:__  
+The `--detach` flag makes sure the container runs in the backgroupd and returns the interactive command-line prompt.          
 The `--it` starts an interactive session (so you enter the shell directly).  
 The `-v` mounts your current working directory onto the `/home/` folder inside your container. That way, you can access the files in your working directory _from_ within the container. 
 
@@ -77,26 +82,26 @@ The `-v` mounts your current working directory onto the `/home/` folder inside y
 ## 1.3 Microbiome (amplicon-based)
 A Dockerfile to follow the [Carpentry-style microbiota data analysis lesson](https://scienceparkstudygroup.github.io/microbiome-lesson/).
 
-**This Docker image contains:**
-- Three datasets called `data_loue_16S_nonnorm_grp.txt`, `data_loue_16S_nonnorm_taxo.txt` and `data_loue_16S_nonnorm.txt`.
-- `vegan` version 2.5-6
-- `tidyverse` version 1.3.0
-- `pheatmap` version 1.0.12
-- `ade4` version 1.7-10
-- `multcomp` version 1.4-10
-- `patchwork` version 1.0.0
-- `agricolae` version 1.3-0
-- `FSA` version 0.8.27
-- `rcompanion` version 2.3.0
-- `phyloseq` Bioconductor version 3.10
-- `dada2` Bioconductor version 3.10 
+**This Docker image contains:**  
+- Three datasets called `data_loue_16S_nonnorm_grp.txt`, `data_loue_16S_nonnorm_taxo.txt` and `data_loue_16S_nonnorm.txt`.  
+- `vegan` version 2.5-6  
+- `tidyverse` version 1.3.0  
+- `pheatmap` version 1.0.12  
+- `ade4` version 1.7-10  
+- `multcomp` version 1.4-10  
+- `patchwork` version 1.0.0  
+- `agricolae` version 1.3-0  
+- `FSA` version 0.8.27  
+- `rcompanion` version 2.3.0  
+- `phyloseq` Bioconductor version 3.10  
+- `dada2` Bioconductor version 3.10   
 
-**To use it locally on your machine:** 
-To use it locally on your machine:
-1. Open a Shell window (command-line interface). 
-2. Navigate to your working directory where you have the files you want to work on for instance. 
-3. Type `docker run --rm --name rstudio -e PASSWORD=<choose a password> -p 8787:8787 scienceparkstudygroup/master-gls:microbiome-latest`.
-4. In a web browser, open this link: [http://localhost:8787](http://localhost:8787).
+**To use it locally on your machine:**   
+To use it locally on your machine:  
+1. Open a Shell window (command-line interface).   
+2. Navigate to your working directory where you have the files you want to work on for instance.   
+3. Type `docker run --detach --name rstudio -e PASSWORD=<choose a password> -p 8787:8787 scienceparkstudygroup/master-gls:microbiome-latest`.  
+4. In a web browser, open this link: [http://localhost:8787](http://localhost:8787).  
 5. Finally enter `rstudio` as the user name and your select password. 
 
 ## 1.4 fastq
@@ -108,17 +113,23 @@ In addition, it can also be used to teach the [Carpentry Shell lesson](http://sw
 * A genome consisting of a single chromosome.
 * Four subsampled RNA-seq fastq files.
 
-**To use it locally on your machine:**
-1. Open a Shell window (command-line interface). 
+**To use it locally on your machine:**  
+1. Open a Shell window (command-line interface).   
 2. Navigate to your working directory where you have the files you want to work on for instance. 
-3. Type `docker run --rm -it scienceparkstudygroup/master-gls:fastq-latest`.
-4. You will enter inside the container where you can execute bash commands. 
+3. Type `docker run -it scienceparkstudygroup/master-gls:fastq-latest`.  
+4. You will enter inside the container where you can execute bash commands.   
+
+### Virtual Machines
+2 vCPUs and 2GB of RAM are sufficient per machine to run the lesson.
+
 
 ## 1.5 RNA-seq
 A Dockerfile for the [Carpentry-style RNA-seq lesson](https://scienceparkstudygroup.github.io/rna-seq-lesson/index.html).  
 The image is based on a [Docker Bioconductor image release 3.10](bioconductor/bioconductor_docker:RELEASE_3_10).  
 
-**The Docker image contains:**  
+### Packages 
+
+**The Docker image contains:**
 
 From `CRAN`:
 * `devtools` (from the MRAN microsoft CRAN mirror of 2020/01/01.
@@ -138,10 +149,13 @@ From `Bioconductor` release 3.10:
 * `Biostrings`
 * `vsn`
 
-One dataset is included. It is available [here](https://zenodo.org/record/3666262) and described [here](https://scienceparkstudygroup.github.io/rnaseq-lesson/setup.html):
+### Datasets
+Two datasets are included. 
+1. Tutorial dataset available [here](https://zenodo.org/record/3666262) and described [here](https://scienceparkstudygroup.github.io/rnaseq-lesson/setup.html):
   - `counts.tsv`
   - `experimental_design_modified.tsv` 
 This dataset is included in the Docker image itself. 
+2. NASA dataset: the raw and scaled counts from the [NASA GeneLab GSL38 RNA-seq and proteomics experiment](https://genelab-data.ndc.nasa.gov/genelab/accession/GLDS-38/).
 
 
 **To use it locally on your machine:**
@@ -152,11 +166,11 @@ This dataset is included in the Docker image itself.
 5. Finally enter `rstudio` as the user name and your select password.  
 
 __Explanations:__
-The `--rm` removes the container when it has been run. No need to store it into your computer after use.      
+The `--detach` flag makes sure the container is still running in the background after the prompt returns. 
 The base image is built on a RStudio server that will ask you for two things: a user name that is always __rstudio__ and __a password__ which is one you have to create. You will be asked for a user name and a password.
 
-This RNA-seq Docker image also contains datasets:  
-- Dataset 1: the raw and scaled counts from the [NASA GeneLab GSL38 RNA-seq and proteomics experiment](https://genelab-data.ndc.nasa.gov/genelab/accession/GLDS-38/).
+
+
 
 ## 1.6 Shotgun microbiome RNA-seq
 A Dockerfile for the [Carpentries incubator lesson on shotgun metagenomics](https://carpentries-incubator.github.io/metagenomics/).  
@@ -281,6 +295,26 @@ doctl compute droplet list --format "ID,Name,PublicIPv4"
 
 ## 3.3 Creating one or multiple droplets
 
+There are two options. One uses the `doctl` command-line tool while the other uses the API interface. 
+
+### doctl
+
+For instance, to create a Virtual Machine (droplet) with `Docker 19.03.12` running on `Ubuntu 20.04`, do:
+
+```bash
+doctl compute droplet create --image docker-20-04 \
+                             --enable-monitoring \
+                             --region ams3 \
+                             --tag-name rnaseq  \
+                             --size s-2vcpu-2gb \
+                             my_droplet_name
+```
+
+The `--tag-name` is useful to perform actions on multiple droplets at once. 
+
+It is then rather easy to create a series of VMs called "machine-01", "machine-02" using a _for loop_.
+
+### API
 This is taken directly from the DO API: https://www.digitalocean.com/docs/apis-clis/api/example-usage/ 
 
 ```bash
