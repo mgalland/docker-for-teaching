@@ -1,7 +1,7 @@
 FROM bioconductor/bioconductor_docker:RELEASE_3_10
                    	
 LABEL author="m.galland@uva.nl" \
-      description="A Docker image used to build a container usable for RNA-seq course presently (2020-04-02) hosted at https://scienceparkstudygroup.github.io/rna-seq-lesson/index.html" \
+      description="A Docker image used to build a container usable for the RNA-seq course presently (2021-07-02) hosted at https://scienceparkstudygroup.github.io/rna-seq-lesson/index.html" \
       usage="docker run -e PASSWORD=mypasswd -p 8787:8787 mgalland/rna-seq-lesson" \
       url="http://localhost:8787" \
       rversion="3.6.2"
@@ -9,6 +9,7 @@ LABEL author="m.galland@uva.nl" \
 
 # Add datasets used for teaching to the image
 COPY tutorial/ /home/rstudio/
+COPY dataset_01_desforges_2019/ /home/rstudio/
 
 # R packages. Specific versions are used here
 RUN R -e "options(repos = list(CRAN = 'http://mran.revolutionanalytics.com/snapshot/2020-01-01/'))" \
