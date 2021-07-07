@@ -1,8 +1,10 @@
-# Docker images for the GLS Master course
+# Docker images for Bachelor/Master courses and training workshops
 
-These Docker files are used to build computational environments for various courses: 
-* Master Green Life Sciences course called "Tools in Molecular Biology" 
-* Carpentry-style courses "RNA-seq" and "shotgun-microbiome" of the Green Life Sciences Master course. The images are automatically tested and built on Docker Hub. 
+These Docker files are used to build computational environments to teach students or train employees. For instance, these are used in:  
+* the Master Green Life Sciences. For the course entitled "Tools in Molecular Biology" 
+* the Carpentry-style courses "RNA-seq" and "shotgun-microbiome". 
+
+Docker images are automatically tested and built on Docker Hub. 
 
 All Docker images ready to use are available at the [Dockerhub master-gls repository](https://hub.docker.com/repository/docker/scienceparkstudygroup/master-gls/general).
 
@@ -28,9 +30,10 @@ Docker containers can be run. For domain-specific instructions, see the instruct
 - [3.Digital Ocean command-line interface](#3digital-ocean-command-line-interface)
 	- [3.1 The doctl CLI](#31-the-doctl-cli)
 	- [3.2 Listing droplets](#32-listing-droplets)
-	- [3.3 Creating one or multiple droplets](#33-creating-one-or-multiple-droplets)
-		- [doctl](#doctl)
-		- [API](#api)
+	- [3.3 Creating virtual machines](#33-creating-virtual-machines)
+		- [One machine](#one-machine)
+		- [Multiple machines](#multiple-machines)
+	- [3.5 Deleting virtual machines](#35-deleting-virtual-machines)
 - [3. References](#3-references)
 	- [3.1 Linux-based containers](#31-linux-based-containers)
 	- [3.2 RStudio containers](#32-rstudio-containers)
@@ -293,46 +296,48 @@ __To get a list of your running droplets, type:__
 doctl compute droplet list --format "ID,Name,PublicIPv4" 
 ```
 
-## 3.3 Creating one or multiple droplets
+## 3.3 Creating virtual machines 
 
-There are two options. One uses the `doctl` command-line tool while the other uses the API interface. 
-
-### doctl
+### One machine  
 
 For instance, to create a Virtual Machine (droplet) with `Docker 19.03.12` running on `Ubuntu 20.04`, do:
 
 ```bash
-doctl compute droplet create --image docker-20-04 \
-                             --enable-monitoring \
-                             --region ams3 \
-                             --tag-name rnaseq  \
-                             --size s-2vcpu-2gb \
-                             my_droplet_name
+doctl compute droplet create --image docker-20-04 \  # Ubuntu 20.04 with Docker installed 
+                             --enable-monitoring \   # Adds monitoring for CPU usage, RAM etc.
+                             --region ams3 \         # region where the droplet is created (e.g. Amsterdam 3)
+                             --tag-name rnaseq  \    # tag for droplet management
+                             --ssh-keys 27380279 \   # A list of SSH key fingerprints to embed upon creation
+                             --size s-2vcpu-2gb \    # slug format to indicate compute size and resources 
+                             [my_droplet_name]
 ```
+**Important notes**  
+- The `--tag-name` is useful to perform actions on multiple droplets at once.   
+- The `--ssh-keys` will point to a SSH key ID to be used with the Droplet root account. This avoids the need for passwords. Here I give my custom public key ID `27380279`. If this flag is not provided, you will get an email with the login credentials. 
 
-The `--tag-name` is useful to perform actions on multiple droplets at once. 
+### Multiple machines
 
-It is then rather easy to create a series of VMs called "machine-01", "machine-02" using a _for loop_.
-
-### API
-This is taken directly from the DO API: https://www.digitalocean.com/docs/apis-clis/api/example-usage/ 
+It is then rather easy to create a series of VMs called "machine-01", "machine-02" using a _for loop_.   
+Say you want to create 20 machines, then:
 
 ```bash
-curl -X POST "https://api.digitalocean.com/v2/droplets" \
-	-d'{"name":"machine-01","region":"ams3","size":"s-1vcpu-1gb","image":"ubuntu-20-04-x64"}' \
-	-H "Authorization: Bearer $DO_TOKEN" \
-	-H "Content-Type: application/json"
+for i in {1..20} 
+do 
+	echo "machine-${i}" 
+	doctl compute droplet create --image docker-20-04 \  # Ubuntu 20.04 with Docker installed 
+                             --enable-monitoring \     # Adds monitoring for CPU usage, RAM etc.
+                             --region ams3 \           # region where the droplet is created (e.g. Amsterdam 3)
+                             --tag-name rnaseq  \      # tag for droplet management
+                             --ssh-keys 27380279 \     # 
+                             --size s-2vcpu-2gb \      # slug format to indicate compute size and resources 
+                             "machine-${i}"            # creates a name with the machine number
+done
 ```
 
-To create multiple droplets (called "sub-01.example.com", "sub-02.example.com")
-```bash
-curl -X POST "https://api.digitalocean.com/v2/droplets" \
-	-d'{"names":["sub-01.example.com","sub-02.example.com"],"region":"ams3","size":"s-1vcpu-1gb","image":"ubuntu-20-04-x64"}' \
-	-H "Authorization: Bearer $DO_TOKEN" \
-	-H "Content-Type: application/json"
-```
+## 3.5 Deleting virtual machines
 
-https://developers.digitalocean.com/documentation/v2/#create-a-new-droplet
+Using the tag that was specified with `--tag-name` it is possible to delete all machines at once:  
+`doctl compute droplet delete --tag-name rnaseq`
 
 
 # 3. References

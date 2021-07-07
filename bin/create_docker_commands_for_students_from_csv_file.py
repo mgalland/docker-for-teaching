@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 
 
-# Usage: python create_docker_commands_for_all_students.py [csv file with student to virtual machine correspondence]
+# Usage: python create_docker_commands_for_all_students.py [csv file with student to virtual machine correspondence] [docker image]
+#
+# This script returns a series of docker run command that can be used to launch several RStudio instances for all students on a virtual machine.
+#
+# Example: python create_docker_commands_for_all_students.py list_of_students.csv scienceparkstudygroup/master-gls:rnaseq-2021 
 
 # Input file should have comma separated values (.csv)
 # Input file format should contain these columns with this naming scheme.
