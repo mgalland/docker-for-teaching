@@ -9,7 +9,7 @@ LABEL author="m.galland@uva.nl" \
 
 # Add datasets used for teaching to the image
 COPY tutorial/ /home/rstudio/tutorial/
-COPY dataset_01_deforges_2019/ /home/rstudio/dataset_01_deforges_2019/
+COPY deforges_2019/ /home/rstudio/deforges_2019/
 
 # R packages. Specific versions are used here
 RUN R -e "options(repos = list(CRAN = 'http://mran.revolutionanalytics.com/snapshot/2020-01-01/'))" \
