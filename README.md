@@ -119,7 +119,7 @@ In addition, it can also be used to teach the [Carpentry Shell lesson](http://sw
 **To use it locally on your machine:**  
 1. Open a Shell window (command-line interface).   
 2. Navigate to your working directory where you have the files you want to work on for instance. 
-3. Type `docker run -it scienceparkstudygroup/master-gls:fastq-latest`.  
+3. Type `docker run -it scienceparkstudygroup/master-gls:fastq-2021`.  
 4. You will enter inside the container where you can execute bash commands.   
 
 ### Virtual Machines
@@ -164,7 +164,7 @@ This dataset is included in the Docker image itself.
 **To use it locally on your machine:**
 1. Open a Shell window (command-line interface). 
 2. Navigate to your working directory where you have the files you want to work on for instance. 
-3. Type `docker run --detach --name machine01 -e PASSWORD=<choose a password> -p 8787:8787 scienceparkstudygroup/master-gls:rna-latest`.
+3. Type `docker run --detach --name machine01 -e PASSWORD=<choose a password> -p 8787:8787 scienceparkstudygroup/master-gls:rnaseq-2021`.
 4. In a web browser, open this link: [http://localhost:8787](http://localhost:8787).
 5. Finally enter `rstudio` as the user name and your select password.  
 
