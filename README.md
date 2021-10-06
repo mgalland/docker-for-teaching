@@ -223,8 +223,8 @@ python create_docker_commands_for_students.py students.tsv
 This will create the Docker commands that can be copy-pasted in the shell of the cloud instance:
 
 ```bash
-docker run --name machine-01 -e PASSWORD=john -p 8787:8787 scienceparkstudygroup/master-gls:openr-latest
-docker run --name machine-02 -e PASSWORD=jane -p 8787:8788 scienceparkstudygroup/master-gls:openr-latest
+docker run --detach --name machine-01 -e PASSWORD=john -p 8787:8787 scienceparkstudygroup/master-gls:openr-latest
+docker run --detach --name machine-02 -e PASSWORD=jane -p 8787:8788 scienceparkstudygroup/master-gls:openr-latest
 ```
 
 In this way, you can have one machine per student, each one on its own port with its own password.
