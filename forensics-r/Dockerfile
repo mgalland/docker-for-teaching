@@ -15,6 +15,7 @@ RUN R -e "install.packages('devtools', repos = 'http://mran.revolutionanalytics.
       && R -e "devtools::install_version('skimr', version = '2.0')" \
       && R -e "devtools::install_version('plotly', version = '4.9.2')" \
       && R -e "devtools::install_version('nycflights13', version = '1.0.1')" \
-      && R -e "devtools::install_version('patchwork', version = '1.0.0')" 
+      && R -e "devtools::install_version('patchwork', version = '1.0.0')" \
+      && R -e "devtools::install_version('GGally', version = '1.5.0')
 
 
