@@ -6,14 +6,15 @@ LABEL author="m.galland@uva.nl" \
       url="http://localhost:8787" \
       rversion="3.6.2"
 
+# Add datasets used for teaching to the image
+COPY GTEx_Analysis_2016-01-15_v7_RNASeQCv1.1.8_gene_median_tpm.tsv /home/rstudio/data/
+COPY mypca.R /home/rstudio/
 
 # R packages. Specific versions are used here
 RUN R -e "install.packages('devtools', repos = 'http://mran.revolutionanalytics.com/snapshot/2020-01-01/')"  \
       && R -e "devtools::install_version('skimr', version = '2.0')" \
       && R -e "devtools::install_version('plotly', version = '4.9.2')" \
       && R -e "devtools::install_version('nycflights13', version = '1.0.1')" \
-      && R -e "devtools::install_version('patchwork', version = '1.0.0')" \
-      && R -e "devtools::install_version('glmnet', version = '4.0')"  \
-      && R -e "devtools::install_version('ranger', version = '0.12.1')" 
+      && R -e "devtools::install_version('patchwork', version = '1.0.0')" 
 
 
