@@ -12,9 +12,6 @@ SHELL ["/bin/bash", "--login", "-c"]
 ADD rna-seq-files/ /datasets/
 
 
-# install nano
-RUN apt-get install nano
-
 # bioconda channel has first priority then r then conda-forge
 RUN conda config --add channels conda-forge  \
   && conda config --add channels r           \
@@ -27,6 +24,7 @@ RUN conda create --name fastq --yes \
                         samtools=1.10 \
                         fastqc=0.11.9 \
                         subread=2.0.0 \
+                        nano=2.9.8 
      && conda clean -afy 
 
 # activate working environment
