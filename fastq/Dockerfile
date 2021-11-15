@@ -24,7 +24,7 @@ RUN conda create --name fastq --yes \
                         samtools=1.10 \
                         fastqc=0.11.9 \
                         subread=2.0.0 \
-                        nano=2.9.8 
+                        nano=2.9.8 \
      && conda clean -afy 
 
 # activate working environment
