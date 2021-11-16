@@ -6,7 +6,7 @@ These Docker files are used to build computational environments to teach student
 
 Docker images are automatically tested and built on Docker Hub. 
 
-All Docker images ready to use are available at the [Dockerhub master-gls repository](https://hub.docker.com/repository/docker/mgalland/master-gls/general).
+All Docker images ready to use are available at the [Dockerhub docker-for-teaching repository](https://hub.docker.com/repository/docker/mgalland/docker-for-teaching/general).
 
 Docker containers can be run. For domain-specific instructions, see the instructions below.  
 
@@ -51,7 +51,7 @@ To test it locally, you'll need to install Docker Desktop first: see instruction
 
 ## 1.1 Open Data Science with R
 Based on the DockerHub `rocker/tidyverse` image but with three added libraries (`skimr`, `plotly` and `nycflights13`).     
-`docker run --detach --name rstudio_instance -e PASSWORD=mypwd -p 8787:8787 mgalland/master-gls:openr-latest`
+`docker run --detach --name rstudio_instance -e PASSWORD=mypwd -p 8787:8787 mgalland/docker-for-teaching:openr-latest`
 
 Then navigate to [http://localhost:8787](http://localhost:8787) in your web browser. You should have an RStudio session running. Type `rstudio` as the user name and your password. 
 
@@ -74,7 +74,7 @@ The `phylogeny/` folder contains the Docker file used to build the image.
 To use it locally on your machine:  
 1. Open a Shell window (command-line interface).   
 2. Navigate to your working directory where you have the files you want to work on for instance.   
-3. Type `docker run --rm -it -v $PWD:/home/ mgalland/master-gls:phylogeny-latest`  
+3. Type `docker run --rm -it -v $PWD:/home/ mgalland/docker-for-teaching:phylogeny-latest`  
 
 __Explanations:__  
 The `--detach` flag makes sure the container runs in the backgroupd and returns the interactive command-line prompt.          
@@ -103,7 +103,7 @@ A Dockerfile to follow the [Carpentry-style microbiota data analysis lesson](htt
 To use it locally on your machine:  
 1. Open a Shell window (command-line interface).   
 2. Navigate to your working directory where you have the files you want to work on for instance.   
-3. Type `docker run --detach --name rstudio -e PASSWORD=<choose a password> -p 8787:8787 mgalland/master-gls:microbiome-latest`.  
+3. Type `docker run --detach --name rstudio -e PASSWORD=<choose a password> -p 8787:8787 mgalland/docker-for-teaching:microbiome-latest`.  
 4. In a web browser, open this link: [http://localhost:8787](http://localhost:8787).  
 5. Finally enter `rstudio` as the user name and your select password. 
 
@@ -119,7 +119,7 @@ In addition, it can also be used to teach the [Carpentry Shell lesson](http://sw
 **To use it locally on your machine:**  
 1. Open a Shell window (command-line interface).   
 2. Navigate to your working directory where you have the files you want to work on for instance. 
-3. Type `docker run -it mgalland/master-gls:fastq-2021`.  
+3. Type `docker run -it mgalland/docker-for-teaching:fastq-2021`.  
 4. You will enter inside the container where you can execute bash commands.   
 
 ### Virtual Machines
@@ -164,7 +164,7 @@ This dataset is included in the Docker image itself.
 **To use it locally on your machine:**
 1. Open a Shell window (command-line interface). 
 2. Navigate to your working directory where you have the files you want to work on for instance. 
-3. Type `docker run --detach --name machine01 -e PASSWORD=<choose a password> -p 8787:8787 mgalland/master-gls:rnaseq-2021`.
+3. Type `docker run --detach --name machine01 -e PASSWORD=<choose a password> -p 8787:8787 mgalland/docker-for-teaching:rnaseq-2021`.
 4. In a web browser, open this link: [http://localhost:8787](http://localhost:8787).
 5. Finally enter `rstudio` as the user name and your select password.  
 
@@ -194,7 +194,7 @@ If you only want to run one RStudio virtual machine, then follow these steps:
 2. In the 'Marketplace' tab, choose the Docker apps which will starts a Virtual Machine with the Linux distribution Ubuntu 18.04 and Docker CE version VERSION 18.06.1 or higher. [Find it here](https://marketplace.digitalocean.com/apps/docker).
 3. Open a Shell terminal and connect through `ssh` to your machine e.g. `ssh root@ip` and enter the Digital Ocean provided password. The IP address will be indicated in your "Droplets" sidebar. For example, use `ssh root@134.209.84.69` if your IP address is `134.209.84.69`.
 4. Start `screen` to make sure that your VM stays up and running when you log out / turn off your computer. [See this help forum](https://www.digitalocean.com/community/questions/how-keep-my-app-running-after-close-putty-f82aab17-ca84-46a0-8a39-3e25f1dd2d45).
-5. Run the appropriate Docker command e.g. `docker run --rm --name rstudio -e PASSWORD=mypwd -p 8787:8787 mgalland/master-gls:openr-latest`. (choose the appropriate Docker image). You can define your own username and password. 
+5. Run the appropriate Docker command e.g. `docker run --rm --name rstudio -e PASSWORD=mypwd -p 8787:8787 mgalland/docker-for-teaching:openr-latest`. (choose the appropriate Docker image). You can define your own username and password. 
 6. Your app should be running at its defined IP address.
 
 ## 2.2 Multiple RStudio machines (one per student)
@@ -202,8 +202,8 @@ If you want to run multiple containers (e.g. one per student), you need to perfo
 expose a different port on the host each time. 
 
 Here's an example for two students:
-* Student 1 ("machine-01"): `docker run --detach --name machine-01 -v ~/machines/machine01/:/home/rstudio/ -e PASSWORD=student01 -p 8080:8787 mgalland/master-gls:openr-latest`
-* Student 2 ("machine-02"): `docker run --detach --name machine-02 -v ~/machines/machine02/:/home/rstudio/ -e PASSWORD=student02 -p 8081:8787 mgalland/master-gls:openr-latest`
+* Student 1 ("machine-01"): `docker run --detach --name machine-01 -v ~/machines/machine01/:/home/rstudio/ -e PASSWORD=student01 -p 8080:8787 mgalland/docker-for-teaching:openr-latest`
+* Student 2 ("machine-02"): `docker run --detach --name machine-02 -v ~/machines/machine02/:/home/rstudio/ -e PASSWORD=student02 -p 8081:8787 mgalland/docker-for-teaching:openr-latest`
 
 Notice that student 1 uses port _8080_ while student 2 uses port _8081_. 
 
@@ -223,8 +223,8 @@ python create_docker_commands_for_students.py students.tsv
 This will create the Docker commands that can be copy-pasted in the shell of the cloud instance:
 
 ```bash
-docker run --detach --name machine-01 -e PASSWORD=john -p 8787:8787 mgalland/master-gls:openr-latest
-docker run --detach --name machine-02 -e PASSWORD=jane -p 8787:8788 mgalland/master-gls:openr-latest
+docker run --detach --name machine-01 -e PASSWORD=john -p 8787:8787 mgalland/docker-for-teaching:openr-latest
+docker run --detach --name machine-02 -e PASSWORD=jane -p 8787:8788 mgalland/docker-for-teaching:openr-latest
 ```
 
 In this way, you can have one machine per student, each one on its own port with its own password.
