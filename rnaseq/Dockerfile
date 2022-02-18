@@ -19,7 +19,8 @@ RUN R -e "options(repos = list(CRAN = 'http://mran.revolutionanalytics.com/snaps
       && R -e "devtools::install_version('BiocManager', version = '1.30.10')" \
       && R -e "devtools::install_version('pwr', version = '1.2-0')" \
       && R -e "devtools::install_version('RColorBrewer', version = '1.0-5')" \
-      && R -e "devtools::install_version('patchwork', version = '1.0.0')"
+      && R -e "devtools::install_version('patchwork', version = '1.0.0')" \
+      && R -e "devtools::install_version('splitstackshape', version = '1.4.6')" 
 
 # Bioconductor R packages
 RUN R -e "BiocManager::install('EnhancedVolcano', version = '3.10', update = FALSE)" \
@@ -28,7 +29,8 @@ RUN R -e "BiocManager::install('EnhancedVolcano', version = '3.10', update = FAL
       && R -e "BiocManager::install('biomaRt', version = '3.10', update = FALSE)" \
       && R -e "BiocManager::install('org.At.tair.db', version = '3.10', update = FALSE)" \
       && R -e "BiocManager::install('Biostrings', version = '3.10', update = FALSE)" \
-      && R -e "BiocManager::install('vsn', version = '3.10', update = FALSE)" 
+      && R -e "BiocManager::install('vsn', version = '3.10', update = FALSE)" \
+      && R -e "BiocManager::install('apeglm', version = '3.10', update = FALSE)" 
 
 # install biomart the latest since it depends on Bioconductor packages Biostrings and BiomaRt
 RUN R -e "devtools::install_version('biomartr', version = '0.9.0')" 
