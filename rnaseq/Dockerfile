@@ -39,6 +39,7 @@ RUN R -e "devtools::install_version('biomartr', version = '0.9.0')"
 RUN apt-get update \
     && apt-get install -y --no-install-recommends apt-utils \
     && apt-get install -y --no-install-recommends \
+    lmodern \
     texlive \
     texlive-latex-extra \
     texlive-fonts-extra \
