@@ -1,10 +1,10 @@
-FROM bioconductor/bioconductor_docker:RELEASE_3_10
+FROM bioconductor/bioconductor_docker:RELEASE_3_14
                    	
 LABEL author="m.galland@uva.nl" \
       description="A Docker image used to build a container for the RNA-seq course presently (2021-07-02) hosted at https://scienceparkstudygroup.github.io/rna-seq-lesson/index.html" \
       usage="docker run -e PASSWORD=mypasswd -p 8787:8787 mgalland/rna-seq-lesson" \
       url="http://localhost:8787" \
-      rversion="3.6.2"
+      rversion="4.1.1"
 
 
 # Add datasets used for teaching to the image
@@ -24,14 +24,14 @@ RUN R -e "options(repos = list(CRAN = 'http://mran.revolutionanalytics.com/snaps
       && R -e "devtools::install_version('splitstackshape', version = '1.4.6')" 
 
 # Bioconductor R packages
-RUN R -e "BiocManager::install('EnhancedVolcano', version = '3.10', update = FALSE)" \
-      && R -e "BiocManager::install('DESeq2', version = '3.10', update = FALSE)"  \
-      && R -e "BiocManager::install('clusterProfiler', version = '3.10', update = FALSE)" \
-      && R -e "BiocManager::install('biomaRt', version = '3.10', update = FALSE)" \
-      && R -e "BiocManager::install('org.At.tair.db', version = '3.10', update = FALSE)" \
-      && R -e "BiocManager::install('Biostrings', version = '3.10', update = FALSE)" \
-      && R -e "BiocManager::install('vsn', version = '3.10', update = FALSE)" \
-      && R -e "BiocManager::install('apeglm', version = '3.10', update = FALSE)" 
+RUN R -e "BiocManager::install('EnhancedVolcano', version = '3.14', update = FALSE)" \
+      && R -e "BiocManager::install('DESeq2', version = '3.14', update = FALSE)"  \
+      && R -e "BiocManager::install('clusterProfiler', version = '3.14', update = FALSE)" \
+      && R -e "BiocManager::install('biomaRt', version = '3.14', update = FALSE)" \
+      && R -e "BiocManager::install('org.At.tair.db', version = '3.14', update = FALSE)" \
+      && R -e "BiocManager::install('Biostrings', version = '3.14', update = FALSE)" \
+      && R -e "BiocManager::install('vsn', version = '3.14', update = FALSE)" \
+      && R -e "BiocManager::install('apeglm', version = '3.14', update = FALSE)" 
 
 # install biomart the latest since it depends on Bioconductor packages Biostrings and BiomaRt
 RUN R -e "devtools::install_version('biomartr', version = '0.9.0')" 
