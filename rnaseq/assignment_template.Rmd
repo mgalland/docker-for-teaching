@@ -1,0 +1,38 @@
+---
+title: "[Title of your assignment]"
+author: "[please indicate your complete name]"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  pdf_document:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+# Keep these global options
+knitr::opts_chunk$set(echo = TRUE, 
+                      warning = FALSE, 
+                      message = FALSE, 
+                      collapse = TRUE)
+```
+
+# Introduction
+
+## Question 1
+Please indicate here your answer to question 1. 
+
+## Question 2
+Please indicate here your answer to question 2.
+ 
+etc.
+
+# Exercise 1
+
+## Question 3
+
+Here is the code related to question 3.
+```{r}
+
+```
+
+You can comment the result or figure produced by your code here. 
+
